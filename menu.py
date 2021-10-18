@@ -21,6 +21,7 @@ if menu=="1":
     name=str(input("Enter name: "))
     age=int(input("Enter age: "))
     id=str(input("Enter MyKad no.: "))
+    gender=str(input("Enter gender: "))
     phone=str(input("Enter phone number: "))
     address=str(input("Enter full address: "))
     postcode=str(input("Enter postcode: "))
