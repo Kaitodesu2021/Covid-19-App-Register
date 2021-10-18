@@ -23,6 +23,9 @@ if menu=="1":
     id=str(input("Enter MyKad no.: "))
     phone=str(input("Enter phone number: "))
     address=str(input("Enter full address: "))
+    postcode=str(input("Enter postcode: "))
+    city=str(input("Enter city: "))
+    state=str(input("Enter state: "))
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
 elif menu=="2":
