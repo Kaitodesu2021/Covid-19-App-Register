@@ -1,5 +1,7 @@
 #menu
 
+import csv
+
 print("""
 
 Welcome to Covid-19 Vaccination Registration App.
@@ -29,6 +31,12 @@ if menu=="1":
     state=str(input("Enter state: "))
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
+    with open ('userdata.csv','w', newline='') as f:
+        fieldnames = ['Name','Age', 'MyKad','Gender','Phone_num','address','postcode','city','state','username','password']
+        thewriter = csv.DictWriter(f, fieldnames= fieldnames)
+        
+        thewriter.writeheader()
+        thewriter.writerow({'Name' : name, 'Age': age, 'MyKad' : id, 'Gender' : gender, 'Phone_num':phone, 'address' : address, 'postcode':postcode, 'city' : city,'state' : state, 'username' : username, 'password': password})
 elif menu=="2":
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
