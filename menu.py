@@ -33,10 +33,23 @@ if menu=="1":
     password=str(input("Enter password: "))
     with open ('userdata.csv','w', newline='') as f:
         fieldnames = ['Name','Age', 'MyKad','Gender','Phone_num','address','postcode','city','state','username','password']
-        thewriter = csv.DictWriter(f, fieldnames= fieldnames)
+        write_user = csv.DictWriter(f, fieldnames= fieldnames)
         
-        thewriter.writeheader()
-        thewriter.writerow({'Name' : name, 'Age': age, 'MyKad' : id, 'Gender' : gender, 'Phone_num':phone, 'address' : address, 'postcode':postcode, 'city' : city,'state' : state, 'username' : username, 'password': password})
+        write_user.writeheader()
+        write_user.writerow({
+            'Name' : name, 
+            'Age': age, 
+            'MyKad' : id, 
+            'Gender' : gender,
+            'Phone_num':phone, 
+            'address' : address, 
+            'postcode':postcode, 
+            'city' : city,
+            'state' : state, 
+            'username' : username, 
+            'password': password}
+            )
+        print('Account registered.')
 elif menu=="2":
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
@@ -48,9 +61,19 @@ elif menu=="2":
 elif menu=="3":
     Admin_user=str(input("Enter username: "))
     Admin_pass=str(input("Enter password: "))
-    reset_1=str(input("Forgot password (y/n)?: "))
-    if reset_1=="y" or reset_1=="Y":
-        reset=str(input("Reset password: "))
+    with open('admin_data.csv','w', newline ='') as f_adm:
+        fieldnames = ['admin_usrname','admin_pass']
+        write_admin = csv.DictWriter(f_adm, fieldnames=fieldnames)
+
+        write_admin.writeheader()
+        write_admin.writerow({
+            'admin_usrname' : Admin_user,
+            'admin_pass' : Admin_pass
+        })
+        print('Admin Registered.')
+#    reset_1=str(input("Forgot password (y/n)?: "))
+#    if reset_1=="y" or reset_1=="Y":
+#        reset=str(input("Reset password: "))
 elif menu=="4":
     print("Logged out.")
 else:
