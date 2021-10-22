@@ -49,7 +49,7 @@ if menu=="1":
             'username' : username, 
             'password': password}
             )
-        print('Account registered.')
+        print(f'Account registered with username : f{username}')
 elif menu=="2":
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
@@ -70,7 +70,7 @@ elif menu=="3":
             'admin_usrname' : Admin_user,
             'admin_pass' : Admin_pass
         })
-        print('Admin Registered.')
+        print(f'Admin Registered. Welcome, f{Admin_user}')
 #    reset_1=str(input("Forgot password (y/n)?: "))
 #    if reset_1=="y" or reset_1=="Y":
 #        reset=str(input("Reset password: "))
