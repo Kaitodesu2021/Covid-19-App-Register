@@ -61,7 +61,7 @@ elif menu=="2":
         reset=str(input("Reset password: "))
     else:
         with open('userdata.json', mode='r') as g:
-            userinfo = json.loads('userdata.json',g)
+            userinfo = json.loads('userdata.json', g)
             for item in userinfo['username']['password']:
                 if item == username and item == password:
                     print('Logged in.')
@@ -69,16 +69,6 @@ elif menu=="2":
 elif menu=="3":
     Admin_user=str(input("Enter username: "))
     Admin_pass=str(input("Enter password: "))
-    with open('admin_data.csv','w', newline ='') as f_adm:
-        fieldnames = ['admin_usrname','admin_pass']
-        write_admin = csv.DictWriter(f_adm, fieldnames=fieldnames)
-
-        write_admin.writeheader()
-        write_admin.writerow({
-            'admin_usrname' : Admin_user,
-            'admin_pass' : Admin_pass
-        })
-        print(f'Admin Registered. Welcome, {Admin_user}')
 #    reset_1=str(input("Forgot password (y/n)?: "))
 #    if reset_1=="y" or reset_1=="Y":
 #        reset=str(input("Reset password: "))
