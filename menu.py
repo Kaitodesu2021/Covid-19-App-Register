@@ -1,18 +1,19 @@
 #menu
 
 import csv
+import json
 
-def main_menu():
-    print("""
 
-    Welcome to Covid-19 Vaccination Registration App.
+print("""
 
-    User Menu:
+Welcome to Covid-19 Vaccination Registration App.
 
-    1. Sign up
-    2. Log in
-    3. Admin Log in
-    4. Log Out 
+User Menu:
+
+1. Sign up
+2. Log in
+3. Admin Log in
+4. Log Out 
 
     """)
 
@@ -21,37 +22,37 @@ menu=input("Enter number: ")
 if menu=="1":
     print("""Create account: 
     """)
-    name=str(input("Enter name: "))
+    
+    name=str(input("Enter full name: "))
     age=int(input("Enter age: "))
-    id=str(input("Enter MyKad no.: "))
-    gender=str(input("Enter gender: "))
-    phone=str(input("Enter phone number: "))
+    id=int(input("Enter MyKad (without \"-\" "))
+    gender=str(input("Enter gender(Male/Female): "))
+    phone=str(input("Enter phone number(without \"-\"): "))
     address=str(input("Enter full address: "))
-    postcode=str(input("Enter postcode: "))
+    postcode=int(input("Enter postcode: "))
     city=str(input("Enter city: "))
     state=str(input("Enter state: "))
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
-    with open ('userdata.csv','w', newline='') as g:
-        fieldnames = ['Name','Age', 'MyKad','Gender','Phone_num','address','postcode','city','state','username','password']
-        write_user = csv.DictWriter(g, fieldnames= fieldnames)
-        
-        write_user.writeheader()
-        write_user.writerow({
-            'Name' : name, 
-            'Age': age, 
-            'MyKad' : id, 
-            'Gender' : gender,
-            'Phone_num':phone, 
-            'address' : address, 
-            'postcode':postcode, 
-            'city' : city,
-            'state' : state, 
-            'username' : username, 
-            'password': password}
-            )
-        print(f'Account registered with username : {username}')
 
+    
+    userinfo = {
+        "names" : name,
+        "ages" : age,
+        "mykad" : id,
+        "gender" : gender,
+        "phone" : phone,
+        "address" : address,
+        'postcode' : postcode,
+        'city' : city,
+        'state' : state,
+        'username' : username,
+        'password' : password
+    } 
+    
+    with open ('userdata.json',mode='w') as g:
+        json.dump(userinfo, g,indent=2)
+    
 elif menu=="2":
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
@@ -59,18 +60,12 @@ elif menu=="2":
     if reset_1=="y" or reset_1=="Y":
         reset=str(input("Reset password: "))
     else:
-        with open('userdata.csv','r') as f:
-            read_userpass = csv.DictReader(f)
-
-            for lines in read_userpass():
-                details = lines.split(',')
-            if username == f.read[9] and (password+'\n') == f.read[10]:
-                print(f'Welcome, {username}')
-                f.close()
-            else:
-                print('Username/Password is incorrect.')
-                print(main_menu)
-
+        with open('userdata.json', mode='r') as g:
+            userinfo = json.loads('userdata.json',g)
+            for item in userinfo['username']['password']:
+                if item == username and item == password:
+                    print('Logged in.')
+        pass
 elif menu=="3":
     Admin_user=str(input("Enter username: "))
     Admin_pass=str(input("Enter password: "))
