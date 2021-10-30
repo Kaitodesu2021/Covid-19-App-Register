@@ -2,30 +2,60 @@
 
 
 import json
-import functions
+import os
 
-print("""
+def saveuserdata(data, filename="userdata.json"):
+    if os.path.exists("userdata.json"):
+        os.remove("userdata.json")   
+    with open(filename, "w") as file_obj:
+        json.dump(data, file_obj, indent=4)
 
-Welcome to Covid-19 Vaccination Registration App.
 
-User Menu:
+def openuserdata(filename="userdata.json"):
+    if not os.path.exists("userdata.json"):
+        userp = []
+        saveuserdata(userp) 
 
-1. Sign up
-2. Log in
-3. Admin Log in
-4. Log Out 
+    with open(filename, "r") as file_obj:
+        data = json.load(file_obj)
+        return data
+
+#Main menu interface
+def main():
+    print("""
+
+    Welcome to Covid-19 Vaccination Registration App.
+
+    User Menu:
+
+    1. Sign up
+    2. Log in
+    3. Admin Log in
+    4. Quit
 
     """)
 
-menu=input("Enter number: ")
+    menu=input("Enter number: ")
 
-if menu=="1":
+    if menu == '1':
+        option_1()
+    elif menu == '2':
+        option_2()
+    elif menu == '3':
+        option_3()
+    elif menu == '4':
+        option_4()
+    else:
+        print('Invalid.')
+
+def option_1():
+    userp = openuserdata()
     print("""Create account: 
     """)
     
     name=str(input("Enter full name: "))
     age=int(input("Enter age: "))
-    id=int(input("Enter MyKad (without \"-\" "))
+    id=int(input("Enter MyKad (without \"-\"): "))
     gender=str(input("Enter gender(Male/Female): "))
     phone=str(input("Enter phone number(without \"-\"): "))
     address=str(input("Enter full address: "))
@@ -50,12 +80,15 @@ if menu=="1":
         'password' : password
     } 
     
-    with open ('userdata.json',mode='w') as g:
-        json.dump(userinfo, g,indent=2)
-        print('Registration Successful, returning to main menu....')
-        functions.return_menu()
-    
-elif menu=="2":
+    userp.append(userinfo)
+    saveuserdata(userp)
+    print('User has been registered.')
+    print('Returning to menu....')
+    main()
+    return
+
+#needs correction
+def option_2():
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
     reset_1=str(input("Forgot password (y/n)?: "))
@@ -65,13 +98,14 @@ elif menu=="2":
         with open('userdata.json', 'r') as f:
             reader = json.load(f)
             if reader['username'] == username and reader['password'] == password:
+                f.close()
                 print('Logged in.')
             else:
                 print('Incorrect details, please try again.')
-            
-            #code below is a random attempt to make a login system (currently unsuccessful)
-elif menu=="3":
-    #code below supposed to be for admin login,accidentally made admin register instead. (will need to fix once i figure out how to make a login system, it doenst work tho for some odd reason)
+
+#needs correction
+def option_3():
+    
     Admin_user=str(input("Enter username: "))
     Admin_pass=str(input("Enter password: "))
 
@@ -82,11 +116,9 @@ elif menu=="3":
             print('Admin login successful.')
         else:
             print('Incorrect details, please try again.')
-            functions.return_menu()
-#    reset_1=str(input("Forgot password (y/n)?: "))
-#    if reset_1=="y" or reset_1=="Y":
-#        reset=str(input("Reset password: "))
-elif menu=="4":
+            
+            
+def option_4():
     print("Logged out.")
-else:
-    print("Invalid")    
+
+main()

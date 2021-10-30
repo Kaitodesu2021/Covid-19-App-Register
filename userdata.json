@@ -1,13 +1,28 @@
-{
-  "names": "Wan Muhammad Atif",
-  "ages": 18,
-  "mykad": "030429060039",
-  "gender": "Male",
-  "phone": "011-10255127",
-  "address": "1, Rainbow Road,",
-  "postcode": "12345",
-  "city": "Mitsuyuki",
-  "state": "Kuala Lumpur",
-  "username": "wmatifts",
-  "password": "atif12345"
-}
+[
+    {
+        "names": "adada",
+        "ages": 1211,
+        "mykad": 21121,
+        "gender": "ada",
+        "phone": "d211",
+        "address": "adada",
+        "postcode": 121,
+        "city": "dada",
+        "state": "ada",
+        "username": "atif1",
+        "password": "atif1"
+    },
+    {
+        "names": "atif",
+        "ages": 18,
+        "mykad": 30429061234,
+        "gender": "Male",
+        "phone": "01110255127",
+        "address": "1, Rainbow Road",
+        "postcode": 43900,
+        "city": "Sepang",
+        "state": "Selangor",
+        "username": "atifthebest",
+        "password": "atifthebest1"
+    }
+]
