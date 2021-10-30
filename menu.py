@@ -1,6 +1,6 @@
 #menu
 
-import csv
+
 import json
 import functions
 
@@ -62,27 +62,27 @@ elif menu=="2":
     if reset_1=="y" or reset_1=="Y":
         reset=str(input("Reset password: "))
     else:
-        with open('userdata.json', mode='r') as g:
+        with open('userdata.json', 'r') as f:
+            reader = json.load(f)
+            if reader['username'] == username and reader['password'] == password:
+                print('Logged in.')
+            else:
+                print('Incorrect details, please try again.')
+            
             #code below is a random attempt to make a login system (currently unsuccessful)
-            userinfo = json.loads('userdata.json', g)
-            for item in userinfo['username']['password']:
-                if item == username and item == password:
-                    print('Logged in.')
-        pass
 elif menu=="3":
     #code below supposed to be for admin login,accidentally made admin register instead. (will need to fix once i figure out how to make a login system, it doenst work tho for some odd reason)
     Admin_user=str(input("Enter username: "))
     Admin_pass=str(input("Enter password: "))
+
     
-    admininfo = {
-        "admin_user" : Admin_user,
-        "admin_pass" : Admin_pass
-    }
-    
-    with open('admindata.json', mode='w') as f:
-        json.dump(admininfo,f,indent=2)
-        print('Admin registration successful, returning to main menu...')
-        functions.return_menu()
+    with open('admindata.json', 'r') as f:
+        admin_data =json.load(f)
+        if admin_data['admin_user'] == Admin_user and admin_data['admin_pass'] == Admin_pass:
+            print('Admin login successful.')
+        else:
+            print('Incorrect details, please try again.')
+            functions.return_menu()
 #    reset_1=str(input("Forgot password (y/n)?: "))
 #    if reset_1=="y" or reset_1=="Y":
 #        reset=str(input("Reset password: "))
