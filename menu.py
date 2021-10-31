@@ -1,16 +1,33 @@
-#menu
+# *********************************************************
+# Program: menu.py
+# Course: PSP0101 PROBLEM SOLVING AND PROGRAM DESIGN
+# Class: TL1-TL4
+# Trimester: 2110
+# Year: 2021/22 Trimester 1
+# Member_1: 1211103154 | Wan Muhammad Atif bin Taram Satiraksa | 1211103154@student.mmu.edu.my | 011-10255127
+# Member_2: 1211103194 | Nur Farahiya Aida binti Abdul Razak | 1211103194@student.mmu.edu.my | 011-51121620
+# Member_3: 1211103373 | Muhammad Alif bin Khabali | 1211103373@student.mmu.edu.my | 017-4622108
+# Member_4: 1211103097 | Nurul Aqilah binti Mohd Shariff | 1211103097@student.mmu.edu.my | 010-7993211
+# *********************************************************
+# Task Distribution
+# Member_1: Administrator assign appointment, create vaccination center and generate list.
+# Member_2: Public user update information and view appointment.
+# Member_3: Menu and result display
+# Member_4: Account sign up and login authentication.
+# *********************************************************
 
 
 import json
 import os
 
+#Open and save user data to userdata.json (if the file doesn't exist, create new one.)
 def saveuserdata(data, filename="userdata.json"):
     if os.path.exists("userdata.json"):
         os.remove("userdata.json")   
     with open(filename, "w") as f:
         json.dump(data, f, indent=4)
 
-
+#Open and load information from userdata.json to python 
 def openuserdata(filename="userdata.json"):
     if not os.path.exists("userdata.json"):
         userp = []
@@ -20,13 +37,14 @@ def openuserdata(filename="userdata.json"):
         data = json.load(f)
         return data
 
+#Open and save admin data to admindata.json (if the file doesn't exist, create new one.)
 def saveadmindata(data, filename="admindata.json"):
     if os.path.exists("admindata.json"):
         os.remove("admindata.json")   
     with open(filename, "w") as f:
         json.dump(data, f, indent=4)
 
-
+#Open and load information from admindata.json to python
 def openadmindata(filename="admindata.json"):
     if not os.path.exists("admindata.json"):
         adminp = []
@@ -66,6 +84,7 @@ def main():
         main()
         return
 
+#Sign Up function
 def option_1():
     userp = openuserdata()
     print("""Create account: 
@@ -112,7 +131,7 @@ def option_1():
     main()
     return
 
-
+#User Login
 def option_2():
     userp = openuserdata()
     username=str(input("Enter username: "))
@@ -121,6 +140,7 @@ def option_2():
     for f in range(len(userp)):
         if userp[f]['username'] == username and userp[f]['password'] == password:
             print('User logged in successfully')
+            #add func for user menu here
             return
     print('Incorrect username/password, please try again.')
     option_2()
@@ -128,7 +148,7 @@ def option_2():
             
         
 
-#needs correction
+#Admin Login
 def option_3():
     adminp = openadmindata()
     admin_user=str(input("Enter username: "))
@@ -142,7 +162,8 @@ def option_3():
     print('Incorrect username/password, please try again.')
     option_3()
     print()
-    
+
+#Exit program
 def option_4():
     print("Logged out.")
 
