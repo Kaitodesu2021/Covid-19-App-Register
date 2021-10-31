@@ -7,8 +7,8 @@ import os
 def saveuserdata(data, filename="userdata.json"):
     if os.path.exists("userdata.json"):
         os.remove("userdata.json")   
-    with open(filename, "w") as file_obj:
-        json.dump(data, file_obj, indent=4)
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=4)
 
 
 def openuserdata(filename="userdata.json"):
@@ -16,8 +16,8 @@ def openuserdata(filename="userdata.json"):
         userp = []
         saveuserdata(userp) 
 
-    with open(filename, "r") as file_obj:
-        data = json.load(file_obj)
+    with open(filename, "r") as f:
+        data = json.load(f)
         return data
 
 #Main menu interface
@@ -47,6 +47,8 @@ def main():
         option_4()
     else:
         print('Invalid.')
+        main()
+        return
 
 def option_1():
     userp = openuserdata()
@@ -87,38 +89,30 @@ def option_1():
     main()
     return
 
-#needs correction
+
 def option_2():
+    userp = openuserdata()
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
-    reset_1=str(input("Forgot password (y/n)?: "))
-    if reset_1=="y" or reset_1=="Y":
-        reset=str(input("Reset password: "))
-    else:
-        with open('userdata.json', 'r') as f:
-            reader = json.load(f)
-            if reader['username'] == username and reader['password'] == password:
-                f.close()
-                print('Logged in.')
-            else:
-                print('Incorrect details, please try again.')
+    
+    for f in range(len(userp)):
+        if userp[f]['username'] == username and userp[f]['password'] == password:
+            print('User logged in successfully')
+            return
+    print('Incorrect username/password, please try again.')
+    option_2()
+    print()
+            
+        
 
 #needs correction
 def option_3():
     
     Admin_user=str(input("Enter username: "))
     Admin_pass=str(input("Enter password: "))
-
     
-    with open('admindata.json', 'r') as f:
-        admin_data =json.load(f)
-        if admin_data['admin_user'] == Admin_user and admin_data['admin_pass'] == Admin_pass:
-            print('Admin login successful.')
-        else:
-            print('Incorrect details, please try again.')
-            
-            
 def option_4():
     print("Logged out.")
+
 
 main()

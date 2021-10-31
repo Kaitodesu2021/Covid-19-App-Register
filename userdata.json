@@ -1,28 +1,28 @@
 [
     {
-        "names": "adada",
-        "ages": 1211,
-        "mykad": 21121,
-        "gender": "ada",
-        "phone": "d211",
-        "address": "adada",
-        "postcode": 121,
-        "city": "dada",
-        "state": "ada",
-        "username": "atif1",
-        "password": "atif1"
+        "names": "atif",
+        "ages": 12,
+        "mykad": 12,
+        "gender": "fe",
+        "phone": "12",
+        "address": "fe",
+        "postcode": 12,
+        "city": "fe",
+        "state": "fe",
+        "username": "test2",
+        "password": "test2"
     },
     {
-        "names": "atif",
-        "ages": 18,
-        "mykad": 30429061234,
-        "gender": "Male",
-        "phone": "01110255127",
-        "address": "1, Rainbow Road",
-        "postcode": 43900,
-        "city": "Sepang",
-        "state": "Selangor",
-        "username": "atifthebest",
-        "password": "atifthebest1"
+        "names": "test",
+        "ages": 12,
+        "mykad": 12,
+        "gender": "dw",
+        "phone": "12",
+        "address": "dw",
+        "postcode": 12,
+        "city": "dwa",
+        "state": "dw",
+        "username": "test",
+        "password": "test123"
     }
 ]
