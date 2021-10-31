@@ -20,10 +20,26 @@ def openuserdata(filename="userdata.json"):
         data = json.load(f)
         return data
 
+def saveadmindata(data, filename="admindata.json"):
+    if os.path.exists("admindata.json"):
+        os.remove("admindata.json")   
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=4)
+
+
+def openadmindata(filename="admindata.json"):
+    if not os.path.exists("admindata.json"):
+        adminp = []
+        saveuserdata(adminp) 
+
+    with open(filename, "r") as f:
+        data = json.load(f)
+        return data
+
 #Main menu interface
 def main():
     print("""
-
+    ------------------------------------------------------------------------------------
     Welcome to Covid-19 Vaccination Registration App.
 
     User Menu:
@@ -79,13 +95,20 @@ def option_1():
         'city' : city,
         'state' : state,
         'username' : username,
-        'password' : password
+        'password' : password,
+        "cv19_status": None ,
+        "apptment_data" : None ,
+        "apptment_time" : None ,
+        "apptment_location" : None,
+        "priority_ranking": None, 
+        "med_history": None
     } 
     
     userp.append(userinfo)
     saveuserdata(userp)
     print('User has been registered.')
     print('Returning to menu....')
+    
     main()
     return
 
@@ -107,9 +130,18 @@ def option_2():
 
 #needs correction
 def option_3():
+    adminp = openadmindata()
+    admin_user=str(input("Enter username: "))
+    admin_pass=str(input("Enter password: "))
     
-    Admin_user=str(input("Enter username: "))
-    Admin_pass=str(input("Enter password: "))
+    for f in range(len(adminp)):
+        if adminp[f]['adminuser'] == admin_user and adminp[f]['adminpass'] == admin_pass:
+            print('Admin logged in successfully')
+            #add func for admin menu here
+            return
+    print('Incorrect username/password, please try again.')
+    option_3()
+    print()
     
 def option_4():
     print("Logged out.")

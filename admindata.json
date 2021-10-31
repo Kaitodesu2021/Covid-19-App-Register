@@ -1,4 +1,10 @@
-{
-    "admin_user" : "admin1",
-    "admin_pass" : "amogus"
-}
+[
+    {
+        "adminuser": "admin1",
+        "adminpass": "amogus"
+    },
+    {
+        "adminuser": "admin2",
+        "adminpass": "sussy"
+    }
+]

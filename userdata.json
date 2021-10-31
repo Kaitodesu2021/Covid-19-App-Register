@@ -24,5 +24,43 @@
         "state": "dw",
         "username": "test",
         "password": "test123"
+    },
+    {
+        "names": "newuser",
+        "ages": 12,
+        "mykad": 12,
+        "gender": "ad",
+        "phone": "12",
+        "address": "ad",
+        "postcode": 12,
+        "city": "ad",
+        "state": "12",
+        "username": "ad",
+        "password": "ad",
+        "cv19_status": null,
+        "apptment_data": null,
+        "apptment_time": null,
+        "apptment_location": null,
+        "priority_ranking": null,
+        "med_history": null
+    },
+    {
+        "names": "testtest",
+        "ages": 12,
+        "mykad": 12,
+        "gender": "a",
+        "phone": "12",
+        "address": "ad",
+        "postcode": 12,
+        "city": "ad",
+        "state": "ad",
+        "username": "ad",
+        "password": "ad",
+        "cv19_status": null,
+        "apptment_data": null,
+        "apptment_time": null,
+        "apptment_location": null,
+        "priority_ranking": null,
+        "med_history": null
     }
 ]
