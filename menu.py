@@ -190,34 +190,37 @@ def option_4():
 
 #admin menu
 def admin_menu(admin_user):
-    print(f'''Welcome, {admin_user}
+    print('-------------------------------------------------------------------------')
+    print(f'''
+    Welcome, {admin_user}
     Please select an option from below : 
     1. Categorise users
     2. Add vaccination centers
     3. Appointment setup
     4. Assigned appointments
     
-    5. Logout''')
+    5. Logout
+    ''')
 
     menu = input('Enter number : ')
     
-    if menu == 1:
+    if menu == '1':
         categorise_users()
-    elif menu == 2:
+    elif menu == '2':
         add_vac_center()
-    elif menu == 3:
+    elif menu == '3':
         appmt_setup()
     #elif menu == 4: 
         #appmt_assgned()
     else:
         print('Invalid input, please try again.')
-        admin_menu()
+        admin_menu(admin_user)
 
 def categorise_users():
-    print('------------------')
-    print('Categorise Users')
-    print('------------------')
-
+    print('''
+        -----------------
+        Categorise Users
+        -----------------''')
     print('''
     1. Risk Class
     2. Priority Ranking
@@ -226,11 +229,12 @@ def categorise_users():
 
     menu = input('Enter number : ')
 
-    if menu == 1:
+    if menu == '1':
         risk_class()
-    elif menu == 2:
+        return
+    elif menu == '2':
         prity_rank()
-    elif menu == 3:
+    elif menu == '3':
         admin_menu()
     else:
         print('Invalid input, please try again.')
@@ -261,12 +265,12 @@ def risk_class():
                     userp.write() #not sure how to yet
                 elif choose2 == 'low':
                     userp.write() #also not sure how to yet
-                elif choose2 == 'x1':
-                    print('Returning to admin menu.....')
-                    admin_menu(admin_user)
                 else:
                     print('Invalid input, please try again.')
                     return
+            elif choose == 'x1':
+                    print('Returning to admin menu.....')
+                    admin_menu(admin_user)
             else:
                 print('No names matched to said query, please try again.')
 
@@ -306,7 +310,7 @@ def appmt_setup():
         #to add more
 
 
-
+#add new vac center. (open new json file for the vac center containing names of those assigned there)
 def add_vac_center():
     vaca = openvac_centerdata()
     print('''
@@ -328,9 +332,8 @@ def add_vac_center():
         vac_location = str(input('Enter address of the vaccination center: '))
         vac_capacity = str(input('Enter capacity/hour of the vaccination center (e.g: 20/hour): '))
         vac_type = str(input('Enter vaccine type (Moderna/Pfizer/CanSino/J&J/AstraZeneca/Sinopharm/Sinovac): '))
-        if vac_type != 'Moderna' or 'Pfizer' or 'CanSino' or 'J&J' or 'AstraZeneca' or 'Sinopharm' or 'Sinovac':
-            print('No such vaccine available. Please try again.')
-            return
+        #if vac_type != 'Moderna' or 'Pfizer' or 'CanSino' or 'J&J' or 'AstraZeneca' or 'Sinopharm' or 'Sinovac':
+        #    print('No such vaccine available. Please try again.')
         
         add_vacc = {
             "vac_name" : vac_name,
@@ -345,4 +348,5 @@ def add_vac_center():
         print('Returning to admin menu.....')
         admin_menu(admin_user)
 
-add_vac_center()
+#def appmt_assgned()
+main()

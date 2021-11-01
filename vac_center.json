@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "vac_name": "WTCKL Vaccine Centre (Station 1)",
+        "vac_location": "Chow Kit, Kuala Lumpur",
+        "vac_capacity": "20",
+        "vac_type": "AstraZeneca"
+    }
+]
