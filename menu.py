@@ -37,6 +37,21 @@ def openuserdata(filename="userdata.json"):
         data = json.load(f)
         return data
 
+def savevac_centerdata(data, filename="vac_center.json"):
+    if os.path.exists("vac_center.json"):
+        os.remove("vac_center.json")   
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=4)
+ 
+def openvac_centerdata(filename="vac_center.json"):
+    if not os.path.exists("vac_center.json"):
+        vaca = []
+        saveuserdata(vaca) 
+
+    with open(filename, "r") as f:
+        data = json.load(f)
+        return data
+
 #Open and save admin data to admindata.json (if the file doesn't exist, create new one.)
 def saveadmindata(data, filename="admindata.json"):
     if os.path.exists("admindata.json"):
@@ -101,6 +116,8 @@ def option_1():
     state=str(input("Enter state: "))
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
+    medhistory=str(input('Enter your medical history(if not applicable, enter \' - \'): '))
+    occupation=str(input('Enter your occupation: '))
 
     
     userinfo = {
@@ -115,12 +132,14 @@ def option_1():
         'state' : state,
         'username' : username,
         'password' : password,
-        "cv19_status": None ,
-        "apptment_data" : None ,
-        "apptment_time" : None ,
-        "apptment_location" : None,
-        "priority_ranking": None, 
-        "med_history": None
+        "cv19_status": '-' ,
+        "apptment_data" : '-' ,
+        "apptment_time" : '-' ,
+        "apptment_location" : '-',
+        "priority_ranking": '-', 
+        "risk_lvl" : '-',
+        "occupation" : occupation,
+        "med_history": medhistory
     } 
     
     userp.append(userinfo)
@@ -150,14 +169,16 @@ def option_2():
 
 #Admin Login
 def option_3():
+    global admin_user
     adminp = openadmindata()
     admin_user=str(input("Enter username: "))
     admin_pass=str(input("Enter password: "))
+
     
     for f in range(len(adminp)):
         if adminp[f]['adminuser'] == admin_user and adminp[f]['adminpass'] == admin_pass:
             print('Admin logged in successfully')
-            #add func for admin menu here
+            admin_menu(admin_user)
             return
     print('Incorrect username/password, please try again.')
     option_3()
@@ -167,5 +188,161 @@ def option_3():
 def option_4():
     print("Logged out.")
 
+#admin menu
+def admin_menu(admin_user):
+    print(f'''Welcome, {admin_user}
+    Please select an option from below : 
+    1. Categorise users
+    2. Add vaccination centers
+    3. Appointment setup
+    4. Assigned appointments
+    
+    5. Logout''')
 
-main()
+    menu = input('Enter number : ')
+    
+    if menu == 1:
+        categorise_users()
+    elif menu == 2:
+        add_vac_center()
+    elif menu == 3:
+        appmt_setup()
+    #elif menu == 4: 
+        #appmt_assgned()
+    else:
+        print('Invalid input, please try again.')
+        admin_menu()
+
+def categorise_users():
+    print('------------------')
+    print('Categorise Users')
+    print('------------------')
+
+    print('''
+    1. Risk Class
+    2. Priority Ranking
+
+    3. Return the menu''')
+
+    menu = input('Enter number : ')
+
+    if menu == 1:
+        risk_class()
+    elif menu == 2:
+        prity_rank()
+    elif menu == 3:
+        admin_menu()
+    else:
+        print('Invalid input, please try again.')
+        categorise_users()
+    
+def risk_class():
+    userp = openuserdata()
+    print('''
+    ------------------------------
+    Assign a user to a risk class
+    ------------------------------
+    ''')
+    print('Name' + '\t\t\t' + 'Age' + '\t\t\t\t' + 'Medical History (if any)')
+    print('--------------------------------------------' + '\t\t' + '---------' + '\t\t\t' + '----------------------')
+    for i in range(len(userp)):
+        names = userp[i]['names']
+        age = userp[i]['ages']
+        medhistory = userp[i]['med_history']
+        print(f'{names}' + '\t\t\t' + f'{age}' + '\t\t\t' + f'{medhistory}')
+        print('---------------------------------------------------------------------------------------------------------------------------')
+
+        choose = input('Enter full user name (or x1 return to admin menu): ')
+        for i in range(len(userp)):
+            if userp[i]['names'] == choose:
+                print(f'User record for {names} obtained.')
+                choose2 = input('Which class do you want to assign the user?(high/low): ')
+                if choose2 == 'high':
+                    userp.write() #not sure how to yet
+                elif choose2 == 'low':
+                    userp.write() #also not sure how to yet
+                elif choose2 == 'x1':
+                    print('Returning to admin menu.....')
+                    admin_menu(admin_user)
+                else:
+                    print('Invalid input, please try again.')
+                    return
+            else:
+                print('No names matched to said query, please try again.')
+
+def prity_rank():
+    userp = openuserdata()
+    print('''
+    -----------------------------------------
+    Assign users to suitable priority ranking
+    -----------------------------------------
+    ''')
+    print('Name' + '\t\t\t' + 'Age' + '\t\t\t\t' + 'Occupation')
+    print('-----------------------------------------------------------------------------')
+    for i in range(len(userp)):
+        names = userp[i]['names']
+        age = userp[i]['ages']
+        occupation = userp[i]['occupation']
+        print(f'{names}' + '\t'+ f'{age}' + '\t\t' + f'{occupation}')
+        #to add more
+
+
+def appmt_setup():
+    userp = openuserdata()
+    print('''
+    -----------------
+     Unassigned Users
+    -----------------''')
+    print('Name' + '\t' + 'ID' + '\t\t' + 'Age' + '\t\t\t' + 'Postcode' + '\t\t\t\t' + 'Risk Level' '\t\t\t\t\t' + 'Priority Rank')
+    print('-----------------------------------------------------------------------------------------------------------------------------------------')
+    for i in range(len(userp)):
+        names = userp[i]['names']
+        ID = userp[i]['mykad']
+        age = userp[i]['ages']
+        postcode = userp[i]['postcode']
+        risklvl = userp[i]['risk_lvl']
+        prtyrank = userp[i]['priority_ranking']
+        print(f'{names}' + '\t' + f'{ID}' + '\t\t' + f'{age}' + '\t\t\t' + f'{postcode}' + '\t\t\t\t' + f'{risklvl}' '\t\t\t\t\t' + f'{prtyrank}')
+        #to add more
+
+
+
+def add_vac_center():
+    vaca = openvac_centerdata()
+    print('''
+    -----------------------------------------
+     Vaccination Centers available currently : 
+    -----------------------------------------''')
+    print('Name' + '\t' + 'ID' + '\t\t' + 'Age' + '\t\t\t' + 'Postcode' + '\t\t\t\t' + 'Risk Level' '\t\t\t\t\t' + 'Priority Rank')
+    print('-----------------------------------------------------------------------------------------------------------------------------------------')
+    for i in range(len(vaca)):
+        name = vaca[i]['vac_name'] 
+        location = vaca[i]['vac_location']
+        capacityperhour = vaca[i]['vac_location']
+        vaccine = vaca[i]['vac_type']
+        print(f'{name}' + '\t' + f'{location}' + '\t\t' + f'{capacityperhour}' + '\t\t\t' + f'{vaccine}')
+
+    q = input('Add new vaccination centre? (y/n): ')
+    if q == 'y':
+        vac_name=str(input('Enter name of the vaccination center: '))
+        vac_location = str(input('Enter address of the vaccination center: '))
+        vac_capacity = str(input('Enter capacity/hour of the vaccination center (e.g: 20/hour): '))
+        vac_type = str(input('Enter vaccine type (Moderna/Pfizer/CanSino/J&J/AstraZeneca/Sinopharm/Sinovac): '))
+        if vac_type != 'Moderna' or 'Pfizer' or 'CanSino' or 'J&J' or 'AstraZeneca' or 'Sinopharm' or 'Sinovac':
+            print('No such vaccine available. Please try again.')
+            return
+        
+        add_vacc = {
+            "vac_name" : vac_name,
+            "vac_location" : vac_location,
+            "vac_capacity" : vac_capacity,
+            'vac_type' : vac_type
+        }
+
+        vaca.append(add_vacc)
+        savevac_centerdata(vaca)
+        print('New vaccination center has been added.')
+        print('Returning to admin menu.....')
+        admin_menu(admin_user)
+
+add_vac_center()
