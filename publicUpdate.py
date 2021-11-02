@@ -78,34 +78,70 @@ elif z=="8":
 
 elif z=="9":
     e=[]
-    k = input("""IF YOU ARE A FROTLINER, PLEASE CHOOSE 1. IF NOT, PLEASE CHOOSE 2):
-        1. FRONTLINERS (health-care worker, community services, energy, food and
-transportation, workers and students)
-        2. NON-FRONTLINERS 
-        """) 
-    w=input("Enter your update number here: ")
+    print("""IF YOU ARE A FROTLINER, PLEASE CHOOSE 1. IF NOT, PLEASE CHOOSE 2):
+    1. FRONTLINERS (health-care worker, community services, energy, food and
+    transportation, workers, students and etc)
+    2. NON-FRONTLINERS 
+    """) 
 
-    if w=="1": 
+    k=input("Enter your update number here: ")
+
+    if k=="1": 
         e=[]
         print("Occupation: FRONTLINERS")
 
-    else w=="2": 
-        e=[]    
+    elif k=="2":  
+        e=[]
+        print("Occupation: NON-FRONTLINER")
+
+    else:
+        print("Invalid")    
+
+
+elif z=="10":
+    e=[]
+    print("""WHAT IS YOUR CURRENT STATUS AT THE MOMENT?
+    1. NORMAL (DID NOT HAVE ANY CONTACT WITH POSITIVE COVID-19 PATIENTS)
+    2. BEEN IN CONTACT WITH POSITIVE COVID-19 PATIENT
+    3. UNDER QUARANTINE
+    """)
+    l=input("Enter your number: ")
     
+    if l=="1":
+        e=[]
+        print("CURRENT STATUS: NORMAL(LOW RISK)")
+
+    elif l=="2": 
+        e=[]
+        print("CURRENT STATUS: BEEN IN CONTACT(MODERATE RISK)")
+
+    elif l=="3": 
+        e=[]
+        print("CURRENT STATUS: UNDER QUARANTINE(HIGH RISK)")    
+
+    else:
+        print("Invalid")
 
 
-    print("Here's your appointment details")
+elif z=="11":
+    e=[]
+    print("""PLEASE CHOOSE YOUR MEDICAL HISTORY?
+    1.Have any cardiovascular diseases, diabetes, chronic respiratory disease, chronic lung disease,
+chronic kidney disease, asthma, obesity, hyper-tension or cancer
+    2. Have allergic (seafood,peanuts or etc)
+    """)
+    m=input("Enter your number: ")
+    
+    if m=="1":
+        e=[]
+        print("MEDICAL HISTORY: CHRONIC DISEASES(HIGH RISK)")
 
-# elif z=="10":
-#     e=[]
-#     print("Here's your appointment details")
-
-
-# elif z=="11":
-#     e=[]
-# #     print("Here's your appointment details")
-
-
+    elif m=="2": 
+        e=[]
+        print("MEDICAL HISTORY: ALLERGIC")
+   
+    else:
+        print("NO HEALTH PROBLEMS")
 
 else:
     print("Invalid")
