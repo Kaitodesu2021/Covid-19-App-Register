@@ -1,11 +1,4 @@
 
-
-# user = {
-#     name : "aida"
-# }
-
-#     a = 2
-# b    = "Datacamp"
 #     print("%d is an integer while %s is a string."%(a,b))
 print("""PLEASE CHOOSE WHAT ARE YOU UPDATING=:
 
@@ -147,7 +140,7 @@ else:
     print("Invalid")
     breakpoint
     #HEYHEYHEY
-    
+
 
 # returns JSON object as
 # a dictionary
