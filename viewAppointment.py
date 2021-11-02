@@ -23,5 +23,7 @@ elif z=="B":
     f=input("PLEASE ENTER YOUR REASONS: ")
 
 else: 
-    print("INVALID")    
+    print("INVALID")  
+
+    #MASUKKK BELUMMM  
 
