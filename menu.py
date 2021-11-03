@@ -19,6 +19,7 @@
 
 import json
 import os
+import sqlite3
 
 #Open and save user data to userdata.json (if the file doesn't exist, create new one.)
 def saveuserdata(data, filename="userdata.json"):
@@ -334,7 +335,7 @@ def add_vac_center():
         vac_type = str(input('Enter vaccine type (Moderna/Pfizer/CanSino/J&J/AstraZeneca/Sinopharm/Sinovac): '))
         #if vac_type != 'Moderna' or 'Pfizer' or 'CanSino' or 'J&J' or 'AstraZeneca' or 'Sinopharm' or 'Sinovac':
         #    print('No such vaccine available. Please try again.')
-        
+
         add_vacc = {
             "vac_name" : vac_name,
             "vac_location" : vac_location,
@@ -348,5 +349,21 @@ def add_vac_center():
         print('Returning to admin menu.....')
         admin_menu(admin_user)
 
-#def appmt_assgned()
-main()
+def appmt_assgned():
+    vaca = openvac_centerdata()
+    print('''
+    ---------------------
+    Assigned Appointments 
+    ---------------------
+    ''')
+    print('Vaccination Centers: ')
+    for i in range(len(vaca)):
+        vac_center = vaca[i]['vac_name']
+        print(f'{vac_center}')
+    
+    f = input('Select a vaccination center by inputting the number: ')
+
+
+
+
+appmt_assgned()

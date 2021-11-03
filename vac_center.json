@@ -4,5 +4,11 @@
         "vac_location": "Chow Kit, Kuala Lumpur",
         "vac_capacity": "20",
         "vac_type": "AstraZeneca"
+    },
+    {
+        "vac_name": "Movenpick Hotel",
+        "vac_location": "KLIA, Sepang, Selangor",
+        "vac_capacity": "15",
+        "vac_type": "Sinovac"
     }
 ]
