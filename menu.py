@@ -19,7 +19,7 @@
 
 import json
 import os
-import sqlite3
+
 
 #Open and save user data to userdata.json (if the file doesn't exist, create new one.)
 def saveuserdata(data, filename="userdata.json"):
@@ -83,6 +83,7 @@ def openadmindata(filename="admindata.json"):
     with open(filename, "r") as f:
         data = json.load(f)
         return data
+
 
 #Main menu interface
 def main():
@@ -307,7 +308,28 @@ def prity_rank():
         age = userp[i]['ages']
         occupation = userp[i]['occupation']
         print(f'{names}' + '\t'+ f'{age}' + '\t\t' + f'{occupation}')
-        #to add more
+        
+        f = input('Input user full name or x to return to admin menu (case-sensitive): ')
+        for i in range(len(userp)):
+            if f == userp[i]['names']:
+                x = input(f'{names}, Set his priority ranking to (1-5): ')
+                if x == '1':
+                    userp["priority_ranking"] = '1'
+                    saveuserdata(userp)
+                elif x == '2':
+                    print() #placeholder
+                elif x == '3':
+                    print() #placeholder
+                elif x == '4':
+                    print() #placeholder
+                elif x == '5':
+                    print() #placeholder
+                else:
+                    print('Invalid input, please try again.')
+                    prity_rank()
+            else:
+                print('User does not exist or name have been typed incorrectly, please try again.')
+                prity_rank()
 
 
 def appmt_setup():
@@ -388,6 +410,7 @@ def appmt_assgned():
         print(f'{vac_center}')
     
     f = input('Select a vaccination center by inputting the number: ')
+    #to be finished
 
 def publicUpdate(): 
     #     print("%d is an integer while %s is a string."%(a,b))
@@ -407,7 +430,7 @@ def publicUpdate():
         0. RETURN TO PREVIOUS PAGE
         ---------------------------------------------------------
         THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.""")
-    import os 
+    
     # dir_path = os.path.dirname(os.path.realpath(__file__))
 
     # Opening JSON file
@@ -594,4 +617,3 @@ def viewAppointment():
         print("INVALID")  
 
 main()
-# appmt_assgned()
