@@ -48,5 +48,5 @@ publicListingPage()
 # Iterating through the json
 # list
 #for i in data['emp_details']:
-    #print(i)
+    
  
