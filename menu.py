@@ -53,6 +53,20 @@ def openvac_centerdata(filename="vac_center.json"):
         data = json.load(f)
         return data
 
+def savevac_userdata(data, filename=f"vac&users.json"):
+    if os.path.exists("vac&users.json"):
+        os.remove("vac&users.json")   
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=4)
+ 
+def openvac_userdata(filename="vac&users.json"):
+    if not os.path.exists("vac&users.json"):
+        vacusers = []
+        saveuserdata(vacusers) 
+
+    with open(filename, "r") as f:
+        data = json.load(f)
+        return data
 #Open and save admin data to admindata.json (if the file doesn't exist, create new one.)
 def saveadmindata(data, filename="admindata.json"):
     if os.path.exists("admindata.json"):
@@ -308,7 +322,15 @@ def appmt_setup():
         risklvl = userp[i]['risk_lvl']
         prtyrank = userp[i]['priority_ranking']
         print(f'{names}' + '\t' + f'{ID}' + '\t\t' + f'{age}' + '\t\t\t' + f'{postcode}' + '\t\t\t\t' + f'{risklvl}' '\t\t\t\t\t' + f'{prtyrank}')
-        #to add more
+
+       
+        f = input('Please input the name of the user (or type in x to return to admin menu): ')
+        print('Available vaccine centers: ')
+        with open('newfile', 'w') as z:
+            print()
+            #placeholder
+        
+
 
 
 #add new vac center. (open new json file for the vac center containing names of those assigned there)
@@ -350,15 +372,15 @@ def add_vac_center():
         admin_menu(admin_user)
 
 def appmt_assgned():
-    vaca = openvac_centerdata()
+    vacusers = openvac_userdata()
     print('''
     ---------------------
     Assigned Appointments 
     ---------------------
     ''')
     print('Vaccination Centers: ')
-    for i in range(len(vaca)):
-        vac_center = vaca[i]['vac_name']
+    for i in range(len(vacusers)):
+        vac_center = vacusers[i]['vac_name']
         print(f'{vac_center}')
     
     f = input('Select a vaccination center by inputting the number: ')
