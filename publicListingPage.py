@@ -1,44 +1,46 @@
 
 import json
+from publicUpdate import publicUpdate
+from viewAppointment import viewAppointment
 
-userdata=[]
+def publicListingPage(): 
+    userdata=[]
 
-print("""PLEASE SELECT WHAT IS YOUR INTENTION?=:
+    print("""PLEASE SELECT WHAT IS YOUR INTENTION?=:
 
-1.UPDATE MY INFORMATIONS
-2.VIEW MY APPOINTMENT DETAILS
+    1.UPDATE MY INFORMATIONS
+    2.VIEW MY APPOINTMENT DETAILS
 
----------------------------------------------------------
-THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.""")
-import os 
-dir_path = os.path.dirname(os.path.realpath(__file__))
+    ---------------------------------------------------------
+    THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.""")
+    import os 
+    dir_path = os.path.dirname(os.path.realpath(__file__))
 
-# Opening JSON file
-f = open(dir_path + '/' + 'data.json')
+    # Opening JSON file
+    # f = open(dir_path + '/' + 'data.json')
 
-z=input("Enter your intention  number here: ")
+    z=input("Enter your intention  number here: ")
 
+    if z=="1".lower(): #to lowercase --> "xxx".lower()
+        e=[]
+        publicUpdate()
 
-if z=="1".lower(): #to lowercase --> "xxx".lower()
-    e=[]
-    print("what to change yada yada")
+    elif z=="2":
+        e=[]
+        viewAppointment()
 
+    else:
+        print("Invalid")
+        breakpoint
 
-elif z=="2":
-    e=[]
-    print("Here's your appointment details")
+publicListingPage()    
 
-
-else:
-    print("Invalid")
-    breakpoint
-
-# returns JSON object as
-# a dictionary
-# data = json.load(f)
- 
-# Closing file
-f.close() 
+    # returns JSON object as
+    # a dictionary
+    # data = json.load(f)
+    
+    # Closing file
+    # f.close() 
 
 
 
