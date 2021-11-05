@@ -19,7 +19,7 @@
 
 import json
 import os
-import sqlite3
+
 
 #Open and save user data to userdata.json (if the file doesn't exist, create new one.)
 def saveuserdata(data, filename="userdata.json"):
@@ -83,6 +83,7 @@ def openadmindata(filename="admindata.json"):
     with open(filename, "r") as f:
         data = json.load(f)
         return data
+
 
 #Main menu interface
 def main():
@@ -206,6 +207,7 @@ def option_3():
 #Exit program
 def option_4():
     print("Logged out.")
+    quit
 
 #admin menu
 def admin_menu(admin_user):
@@ -231,6 +233,8 @@ def admin_menu(admin_user):
         appmt_setup()
     #elif menu == 4: 
         #appmt_assgned()
+    elif menu == '5':
+        main()
     else:
         print('Invalid input, please try again.')
         admin_menu(admin_user)
@@ -254,7 +258,7 @@ def categorise_users():
     elif menu == '2':
         prity_rank()
     elif menu == '3':
-        admin_menu()
+        admin_menu(admin_user)
     else:
         print('Invalid input, please try again.')
         categorise_users()
@@ -275,19 +279,23 @@ def risk_class():
         print(f'{names}' + '\t\t\t' + f'{age}' + '\t\t\t' + f'{medhistory}')
         print('---------------------------------------------------------------------------------------------------------------------------')
 
-        choose = input('Enter full user name (or x1 return to admin menu): ')
+        choose = input('Enter full user name (or x return to admin menu): ')
         for i in range(len(userp)):
             if userp[i]['names'] == choose:
                 print(f'User record for {names} obtained.')
                 choose2 = input('Which class do you want to assign the user?(high/low): ')
                 if choose2 == 'high':
-                    userp.write() #not sure how to yet
+                    userp[0]['risk_lvl'] = "High"
+                    saveuserdata(userp)
+                    admin_menu(admin_user)
                 elif choose2 == 'low':
-                    userp.write() #also not sure how to yet
+                    userp[0]['risk_lvl'] = "Low"
+                    saveuserdata(userp)
+                    admin_menu(admin_user)
                 else:
                     print('Invalid input, please try again.')
-                    return
-            elif choose == 'x1':
+                    risk_class()
+            elif choose == 'x':
                     print('Returning to admin menu.....')
                     admin_menu(admin_user)
             else:
@@ -302,12 +310,45 @@ def prity_rank():
     ''')
     print('Name' + '\t\t\t' + 'Age' + '\t\t\t\t' + 'Occupation')
     print('-----------------------------------------------------------------------------')
-    for i in range(len(userp)):
-        names = userp[i]['names']
-        age = userp[i]['ages']
-        occupation = userp[i]['occupation']
+    for g in range(len(userp)):
+        names = userp[g]['names']
+        age = userp[g]['ages']
+        occupation = userp[g]['occupation']
         print(f'{names}' + '\t'+ f'{age}' + '\t\t' + f'{occupation}')
-        #to add more
+        print('--------------------------------------------------------------------------------')
+        
+        f = input('Input user full name or x to return to admin menu (case-sensitive): ')
+        for i in range(len(userp)):
+            if f == userp[i]['names']:
+                x = input(f'{names}, Set his priority ranking to (1-5): ')
+                if x == '1':
+                    userp[0]['priority_ranking'] = "1"
+                    saveuserdata(userp)
+                    admin_menu(admin_user)
+                elif x == '2':
+                    userp[0]['priority_ranking'] = "2"
+                    saveuserdata(userp)
+                    admin_menu(admin_user)
+                elif x == '3':
+                    userp[0]['priority_ranking'] = "3"
+                    saveuserdata(userp)
+                    admin_menu(admin_user)
+                elif x == '4':
+                    userp[0]['priority_ranking'] = "4"
+                    saveuserdata(userp)
+                    admin_menu(admin_user)
+                elif x == '5':
+                    userp[0]['priority_ranking'] = "5"
+                    saveuserdata(userp)
+                    admin_menu(admin_user)
+                else:
+                    print('Invalid input, please try again.')
+                    prity_rank()
+            elif f == 'x':
+                admin_menu(admin_user)
+            else:
+                print('User does not exist or name have been typed incorrectly, please try again.')
+                prity_rank()
 
 
 def appmt_setup():
@@ -316,16 +357,17 @@ def appmt_setup():
     -----------------
      Unassigned Users
     -----------------''')
-    print('Name' + '\t' + 'ID' + '\t\t' + 'Age' + '\t\t\t' + 'Postcode' + '\t\t\t\t' + 'Risk Level' '\t\t\t\t\t' + 'Priority Rank')
+    print('Name' + '\t' + 'ID' + '\t\t' + 'Age' + '\t\t\t' + 'Postcode' + '\t\t\t\t' + 'Risk Level' '\t\t\t\t\t' + 'Priority Rank' + '')
     print('-----------------------------------------------------------------------------------------------------------------------------------------')
     for i in range(len(userp)):
         names = userp[i]['names']
-        ID = userp[i]['mykad']
+        IDs = userp[i]['mykad']
         age = userp[i]['ages']
         postcode = userp[i]['postcode']
         risklvl = userp[i]['risk_lvl']
         prtyrank = userp[i]['priority_ranking']
-        print(f'{names}' + '\t' + f'{ID}' + '\t\t' + f'{age}' + '\t\t\t' + f'{postcode}' + '\t\t\t\t' + f'{risklvl}' '\t\t\t\t\t' + f'{prtyrank}')
+        print(f'{names}' + '\t' + f'{IDs}' + '\t\t' + f'{age}' + '\t\t\t' + f'{postcode}' + '\t\t\t\t' + f'{risklvl}' '\t\t\t\t\t' + f'{prtyrank}')
+        print('-------------------------------------------------------------------------------------------------------------------------------------')
 
        
         f = input('Please input the name of the user (or type in x to return to admin menu): ')
@@ -335,8 +377,6 @@ def appmt_setup():
             #placeholder
         
 
-
-
 #add new vac center. (open new json file for the vac center containing names of those assigned there)
 def add_vac_center():
     vaca = openvac_centerdata()
@@ -344,7 +384,7 @@ def add_vac_center():
     -----------------------------------------
      Vaccination Centers available currently : 
     -----------------------------------------''')
-    print('Name' + '\t' + 'ID' + '\t\t' + 'Age' + '\t\t\t' + 'Postcode' + '\t\t\t\t' + 'Risk Level' '\t\t\t\t\t' + 'Priority Rank')
+    print('Name' + '\t' + 'ID' + '\t\t' + 'Age' + '\t\t\t' + 'Postcode' + '\t\t\t\t' + 'Priority Rank')
     print('-----------------------------------------------------------------------------------------------------------------------------------------')
     for i in range(len(vaca)):
         name = vaca[i]['vac_name'] 
@@ -352,6 +392,7 @@ def add_vac_center():
         capacityperhour = vaca[i]['vac_location']
         vaccine = vaca[i]['vac_type']
         print(f'{name}' + '\t' + f'{location}' + '\t\t' + f'{capacityperhour}' + '\t\t\t' + f'{vaccine}')
+        
 
     q = input('Add new vaccination centre? (y/n): ')
     if q == 'y':
@@ -374,6 +415,12 @@ def add_vac_center():
         print('New vaccination center has been added.')
         print('Returning to admin menu.....')
         admin_menu(admin_user)
+    elif q == 'n':
+        print('Returning to admin menu....')
+        admin_menu(admin_user)
+    else:
+        print('Invalid input, please try again.')
+        add_vac_center()
 
 def appmt_assgned():
     vacusers = openvac_userdata()
@@ -388,6 +435,7 @@ def appmt_assgned():
         print(f'{vac_center}')
     
     f = input('Select a vaccination center by inputting the number: ')
+    #to be finished
 
 def publicUpdate(): 
     #     print("%d is an integer while %s is a string."%(a,b))
@@ -407,7 +455,7 @@ def publicUpdate():
         0. RETURN TO PREVIOUS PAGE
         ---------------------------------------------------------
         THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.""")
-    import os 
+    
     # dir_path = os.path.dirname(os.path.realpath(__file__))
 
     # Opening JSON file
@@ -594,5 +642,3 @@ def viewAppointment():
         print("INVALID")  
 
 main()
-# appmt_assgned()
-#...
