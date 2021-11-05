@@ -27,6 +27,7 @@ def saveuserdata(data, filename="userdata.json"):
         os.remove("userdata.json")   
     with open(filename, "w") as f:
         json.dump(data, f, indent=4)
+        f.close()
 
 #Open and load information from userdata.json to python 
 def openuserdata(filename="userdata.json"):
@@ -123,7 +124,7 @@ def option_1():
     
     name=str(input("Enter full name: "))
     age=int(input("Enter age: "))
-    id=int(input("Enter MyKad (without \"-\"): "))
+    id=str(input("Enter MyKad (without \"-\"): "))
     gender=str(input("Enter gender(Male/Female): "))
     phone=str(input("Enter phone number(without \"-\"): "))
     address=str(input("Enter full address: "))
@@ -134,6 +135,7 @@ def option_1():
     password=str(input("Enter password: "))
     medhistory=str(input('Enter your medical history(if not applicable, enter \' - \'): '))
     occupation=str(input('Enter your occupation: '))
+    email=input('Please enter your email: ')
 
     
     userinfo = {
@@ -146,6 +148,7 @@ def option_1():
         'postcode' : postcode,
         'city' : city,
         'state' : state,
+        'email': email,
         'username' : username,
         'password' : password,
         "cv19_status": '-' ,
@@ -156,6 +159,7 @@ def option_1():
         "risk_lvl" : '-',
         "occupation" : occupation,
         "med_history": medhistory
+        
     } 
     
     userp.append(userinfo)
@@ -178,7 +182,7 @@ def option_2():
         if userp[f]['username'] == username and userp[f]['password'] == password:
             print('User logged in successfully')
             #add func for user menu here
-            publicListingPage(userp, f)
+            publicListingPage()
             return
             
     print('Incorrect username/password, please try again.')
@@ -276,30 +280,32 @@ def risk_class():
         names = userp[i]['names']
         age = userp[i]['ages']
         medhistory = userp[i]['med_history']
-        print(f'{names}' + '\t\t\t' + f'{age}' + '\t\t\t' + f'{medhistory}')
-        print('---------------------------------------------------------------------------------------------------------------------------')
+        print(f'{i+1}. ' + f'{names}' + '\t\t\t' + f'{age}' + '\t\t\t' + f'{medhistory}')
+    print('---------------------------------------------------------------------------------------------------------------------------')
 
-        choose = input('Enter full user name (or x return to admin menu): ')
-        for i in range(len(userp)):
-            if userp[i]['names'] == choose:
-                print(f'User record for {names} obtained.')
-                choose2 = input('Which class do you want to assign the user?(high/low): ')
-                if choose2 == 'high':
-                    userp[0]['risk_lvl'] = "High"
-                    saveuserdata(userp)
-                    admin_menu(admin_user)
-                elif choose2 == 'low':
-                    userp[0]['risk_lvl'] = "Low"
-                    saveuserdata(userp)
-                    admin_menu(admin_user)
-                else:
-                    print('Invalid input, please try again.')
-                    risk_class()
-            elif choose == 'x':
-                    print('Returning to admin menu.....')
-                    admin_menu(admin_user)
-            else:
-                print('No names matched to said query, please try again.')
+
+    n = int(input('Enter user number : '))
+    if n != None:
+        print(f'User record for {userp[n-1]["names"]} obtained.')
+        choose2 = input('Which class do you want to assign the user?(high/low/x to return to admin menu): ')
+        if choose2 == 'high':
+            userp[n-1]['risk_lvl'] = "High"
+            saveuserdata(userp)
+            admin_menu(admin_user)
+        elif choose2 == 'low':
+            userp[n-1]['risk_lvl'] = "Low"
+            saveuserdata(userp)
+            admin_menu(admin_user)
+        elif choose2 == 'x':
+            print('Returning to main menu.............')
+            admin_menu(admin_user)
+        else:
+            print('Invalid input, please try again.')
+            admin_menu(admin_user)
+    else:
+        print('Invalid input, please try again.')
+        risk_class()
+        
 
 def prity_rank():
     userp = openuserdata()
@@ -308,47 +314,44 @@ def prity_rank():
     Assign users to suitable priority ranking
     -----------------------------------------
     ''')
-    print('Name' + '\t\t\t' + 'Age' + '\t\t\t\t' + 'Occupation')
+    print('Name','Age','Occupation')
     print('-----------------------------------------------------------------------------')
     for g in range(len(userp)):
         names = userp[g]['names']
         age = userp[g]['ages']
         occupation = userp[g]['occupation']
-        print(f'{names}' + '\t'+ f'{age}' + '\t\t' + f'{occupation}')
-        print('--------------------------------------------------------------------------------')
-        
-        f = input('Input user full name or x to return to admin menu (case-sensitive): ')
-        for i in range(len(userp)):
-            if f == userp[i]['names']:
-                x = input(f'{names}, Set his priority ranking to (1-5): ')
-                if x == '1':
-                    userp[0]['priority_ranking'] = "1"
-                    saveuserdata(userp)
-                    admin_menu(admin_user)
-                elif x == '2':
-                    userp[0]['priority_ranking'] = "2"
-                    saveuserdata(userp)
-                    admin_menu(admin_user)
-                elif x == '3':
-                    userp[0]['priority_ranking'] = "3"
-                    saveuserdata(userp)
-                    admin_menu(admin_user)
-                elif x == '4':
-                    userp[0]['priority_ranking'] = "4"
-                    saveuserdata(userp)
-                    admin_menu(admin_user)
-                elif x == '5':
-                    userp[0]['priority_ranking'] = "5"
-                    saveuserdata(userp)
-                    admin_menu(admin_user)
-                else:
-                    print('Invalid input, please try again.')
-                    prity_rank()
-            elif f == 'x':
+        print(f'{g+1}. ', f'{names}' ,f'{age}' , f'{occupation}')
+    print('--------------------------------------------------------------------------------')
+    f = int(input('Input user\'s number: '))
+    if f != None:
+            x = int(input(f'{userp[f-1]["names"]}, Set his priority ranking to (1-5): '))
+            if x == 1:
+                userp[f-1]['priority_ranking'] = "1"
+                saveuserdata(userp)
+                admin_menu(admin_user)
+            elif x == 2:
+                userp[f-1]['priority_ranking'] = "2"
+                saveuserdata(userp)
+                admin_menu(admin_user)
+            elif x == 3:
+                userp[f-1]['priority_ranking'] = "3"
+                saveuserdata(userp)
+                admin_menu(admin_user)
+            elif x ==4:
+                userp[f-1]['priority_ranking'] = "4"
+                saveuserdata(userp)
+                admin_menu(admin_user)
+            elif x == 5:
+                userp[f-1]['priority_ranking'] = "5"
+                saveuserdata(userp)
                 admin_menu(admin_user)
             else:
-                print('User does not exist or name have been typed incorrectly, please try again.')
+                print('Invalid input, please try again.')
                 prity_rank()
+    else:
+        print('Please type in something and try again')
+        prity_rank()
+
 
 
 def appmt_setup():
@@ -370,11 +373,11 @@ def appmt_setup():
         print('-------------------------------------------------------------------------------------------------------------------------------------')
 
        
-        f = input('Please input the name of the user (or type in x to return to admin menu): ')
-        print('Available vaccine centers: ')
-        with open('newfile', 'w') as z:
-            print()
-            #placeholder
+    f = input('Please input the name of the user (or type in x to return to admin menu): ')
+    print('Available vaccine centers: ')
+    with open('newfile', 'w') as z:
+        print()
+        #placeholder
         
 
 #add new vac center. (open new json file for the vac center containing names of those assigned there)
@@ -437,7 +440,8 @@ def appmt_assgned():
     f = input('Select a vaccination center by inputting the number: ')
     #to be finished
 
-def publicUpdate(userp, f): 
+def publicUpdate(): 
+    #     print("%d is an integer while %s is a string."%(a,b))
     print("""PLEASE CHOOSE WHAT ARE YOU UPDATING=:
 
         1.NAME
@@ -449,56 +453,64 @@ def publicUpdate(userp, f):
         7.POSTCODE
         8.STATE
         9.OCCUPATION
-        10.MEDICAL HISTORY  
+        10.CURRENT STATUS
+        11.MEDICAL HISTORY  
         0. RETURN TO PREVIOUS PAGE
         ---------------------------------------------------------
         THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.""")
+    
+    # dir_path = os.path.dirname(os.path.realpath(__file__))
+
+    # Opening JSON file
+    # f = open(dir_path + '/' + 'data.json')
 
     z=input("Enter your update number here: ")
 
+
     if z=="1".lower(): #to lowercase --> "xxx".lower()
+        e=[]
         a=(input("Enter your fullname: " ))
-        userp[f]["names"] = a
-        publicUpdate(userp, f)
+        print(f"Name: {a}")
+
 
     elif z=="2":
+        e=[]
         b=int(input("Enter your age: "))
-        userp[f]["ages"] = b
-        
-        
+        print(f"Age: {b}")
 
     elif z=="3":
+        e=[]
         c=int(input("Enter your identity card number: "))
-        userp[f]["mykad"] = c
-        publicUpdate(userp, f)
+        print(f"Identity card number:{c} ")
 
     elif z=="4":
+        e=[]
         d=int(input("Enter your telephone number: "))
-        userp[f]["phone"] = d
-        publicUpdate(userp, f)
+        print(f"Telephone number:{d}")
 
     elif z=="5":
+        e=[]
         h=input("Enter your email: ")
-        userp[f]["email"] = h
-        publicUpdate(userp, f)
+        print(f"User's email:{h}")
 
     elif z=="6":
+        e=[]
         g=input("Enter your current address: ")
-        userp[f]["address"] = g
-        publicUpdate(userp, f)
+        print(f"Current address: {g}")
 
     elif z=="7":
+        e=[]
         i=int(input("Enter your current postcode: "))
-        userp[f]["postcode"] = i
-        publicUpdate(userp, f)
+        print(f"Current postcode: {i}")
 
     elif z=="8":
+        e=[]
         j=input("Enter your current state: ")
-        userp[f]["state"] = j
-        publicUpdate(userp, f)
+        print(f"Current state: {j}")
 
     elif z=="9":
-        print("""IF YOU ARE A FRONTLINER, PLEASE CHOOSE 1. IF NOT, PLEASE CHOOSE 2):
+        e=[]
+        print("""IF YOU ARE A FROTLINER, PLEASE CHOOSE 1. IF NOT, PLEASE CHOOSE 2):
         1. FRONTLINERS (health-care worker, community services, energy, food and
         transportation, workers, students and etc)
         2. NON-FRONTLINERS 
@@ -507,33 +519,61 @@ def publicUpdate(userp, f):
         k=input("Enter your update number here: ")
 
         if k=="1": 
-            userp[f]["occupation"] = "FRONTLINERS"
+            e=[]
             print("Occupation: FRONTLINERS")
 
         elif k=="2":  
-            userp[f]["occupation"] = "NON-FRONTLINER"
+            e=[]
             print("Occupation: NON-FRONTLINER")
 
         else:
-            print("Invalid input. Please re-enter")   
-            publicUpdate(userp, f) 
+            print("Invalid")    
 
 
     elif z=="10":
+        e=[]
+        print("""WHAT IS YOUR CURRENT STATUS AT THE MOMENT?
+        1. NORMAL (DID NOT HAVE ANY CONTACT WITH POSITIVE COVID-19 PATIENTS)
+        2. BEEN IN CONTACT WITH POSITIVE COVID-19 PATIENT
+        3. UNDER QUARANTINE
+        """)
+        l=input("Enter your number: ")
+        
+        if l=="1":
+            e=[]
+            print("CURRENT STATUS: NORMAL(LOW RISK)")
+
+        elif l=="2": 
+            e=[]
+            print("CURRENT STATUS: BEEN IN CONTACT(MODERATE RISK)")
+
+        elif l=="3": 
+            e=[]
+            print("CURRENT STATUS: UNDER QUARANTINE(HIGH RISK)")    
+
+        else:
+            print("Invalid")
+
+
+    elif z=="11":
+        e=[]
         print("""PLEASE CHOOSE YOUR MEDICAL HISTORY?
         1.Have any cardiovascular diseases, diabetes, chronic respiratory disease, chronic lung disease,
     chronic kidney disease, asthma, obesity, hyper-tension or cancer
-        2. None of the above
+        2. Have allergic (seafood,peanuts or etc)
         """)
         m=input("Enter your number: ")
         
         if m=="1":
+            e=[]
             print("MEDICAL HISTORY: CHRONIC DISEASES(HIGH RISK)")
-            userp[f]["med_history"] = "DIAGNOSED WITH CHRONIC DISEASES(HIGH RISK)"
 
         elif m=="2": 
-            print("NO HIGH RISK HEALTH PROBLEMS")
-            userp[f]["med_history"] = "NO HIGH RISK HEALTH PROBLEMS"
+            e=[]
+            print("MEDICAL HISTORY: ALLERGIC")
+    
+        else:
+            print("NO HEALTH PROBLEMS")
      
     elif z=="0":
         # publicListing()
@@ -542,10 +582,8 @@ def publicUpdate(userp, f):
         print("Invalid")
         breakpoint
 
-    saveuserdata(userp) 
-
-
-def publicListingPage(userp, f): 
+def publicListingPage(): 
+    userdata=[]
 
     print("""PLEASE SELECT WHAT IS YOUR INTENTION?=:
 
@@ -554,11 +592,17 @@ def publicListingPage(userp, f):
 
     ---------------------------------------------------------
     THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.""")
+    import os 
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+
+    # Opening JSON file
+    # f = open(dir_path + '/' + 'data.json')
 
     z=input("Enter your intention  number here: ")
 
     if z=="1".lower(): #to lowercase --> "xxx".lower()
-        publicUpdate(userp, f)
+        e=[]
+        publicUpdate()
 
     elif z=="2":
         e=[]
@@ -599,6 +643,7 @@ def viewAppointment():
         publicListingPage()
     else: 
         print("INVALID")  
-        publicUpdate()
 
-main()
+
+#prity_rank()
+#risk_class()
