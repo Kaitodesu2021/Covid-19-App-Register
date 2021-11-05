@@ -285,11 +285,8 @@ def risk_class():
                 print(f'User record for {names} obtained.')
                 choose2 = input('Which class do you want to assign the user?(high/low): ')
                 if choose2 == 'high':
-                    with open("userdata.json", "r") as g:
-                        data = json.load(g)
-                    data[0]['risk_lvl'] = "High"
-                    with open("userdata.json", "w") as g:
-                        json.dump(data, g, indent=4)
+                    userp[0]['risk_lvl'] = "High"
+                    saveuserdata(userp)
                     admin_menu(admin_user)
                 elif choose2 == 'low':
                     userp[0]['risk_lvl'] = "Low"
