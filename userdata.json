@@ -15,8 +15,8 @@
         "apptment_data": "-",
         "apptment_time": "-",
         "apptment_location": "-",
-        "priority_ranking": "2",
-        "risk_lvl": "High",
+        "priority_ranking": "1",
+        "risk_lvl": "Low",
         "occupation": "student",
         "med_history": "-"
     },

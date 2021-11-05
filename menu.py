@@ -292,15 +292,12 @@ def risk_class():
                         json.dump(data, g, indent=4)
                     admin_menu(admin_user)
                 elif choose2 == 'low':
-                    with open("userdata.json", "r") as g:
-                        data = json.load(g)
-                    data[0]['risk_lvl'] = "Low"
-                    with open("userdata.json", "w") as g:
-                        json.dump(data, g, indent=4)
+                    userp[0]['risk_lvl'] = "Low"
+                    saveuserdata(userp)
                     admin_menu(admin_user)
                 else:
                     print('Invalid input, please try again.')
-                    return
+                    risk_class()
             elif choose == 'x':
                     print('Returning to admin menu.....')
                     admin_menu(admin_user)
@@ -328,41 +325,25 @@ def prity_rank():
             if f == userp[i]['names']:
                 x = input(f'{names}, Set his priority ranking to (1-5): ')
                 if x == '1':
-                    with open("userdata.json", "r") as g:
-                        data = json.load(g)
-                    data[0]['priority_ranking'] = "1"
-                    with open("userdata.json", "w") as g:
-                        json.dump(data, g, indent=4)
+                    userp[0]['priority_ranking'] = "1"
+                    saveuserdata(userp)
                     admin_menu(admin_user)
-                    
                 elif x == '2':
-                     with open("userdata.json", "r") as g:
-                        data = json.load(g)
-                        data[0]['priority_ranking'] = "2"
-                     with open("userdata.json", "w") as g:
-                        json.dump(data, g, indent=4)
-                        admin_menu(admin_user)
+                    userp[0]['priority_ranking'] = "2"
+                    saveuserdata(userp)
+                    admin_menu(admin_user)
                 elif x == '3':
-                     with open("userdata.json", "r") as g:
-                        data = json.load(g)
-                        data[0]['priority_ranking'] = "3"
-                     with open("userdata.json", "w") as g:
-                        json.dump(data, g, indent=4)
-                        admin_menu(admin_user)
+                    userp[0]['priority_ranking'] = "3"
+                    saveuserdata(userp)
+                    admin_menu(admin_user)
                 elif x == '4':
-                     with open("userdata.json", "r") as g:
-                        data = json.load(g)
-                        data[0]['priority_ranking'] = "4"
-                     with open("userdata.json", "w") as g:
-                        json.dump(data, g, indent=4)
-                        admin_menu(admin_user)
+                    userp[0]['priority_ranking'] = "4"
+                    saveuserdata(userp)
+                    admin_menu(admin_user)
                 elif x == '5':
-                     with open("userdata.json", "r") as g:
-                        data = json.load(g)
-                        data[0]['priority_ranking'] = "5"
-                     with open("userdata.json", "w") as g:
-                        json.dump(data, g, indent=4)
-                        admin_menu(admin_user)
+                    userp[0]['priority_ranking'] = "5"
+                    saveuserdata(userp)
+                    admin_menu(admin_user)
                 else:
                     print('Invalid input, please try again.')
                     prity_rank()
