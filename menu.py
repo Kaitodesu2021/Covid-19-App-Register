@@ -361,20 +361,20 @@ def appmt_setup():
     print('-----------------------------------------------------------------------------------------------------------------------------------------')
     for i in range(len(userp)):
         names = userp[i]['names']
-        ID = userp[i]['mykad']
+        IDs = userp[i]['mykad']
         age = userp[i]['ages']
         postcode = userp[i]['postcode']
         risklvl = userp[i]['risk_lvl']
         prtyrank = userp[i]['priority_ranking']
-        print(f'{names}' + '\t' + f'{ID}' + '\t\t' + f'{age}' + '\t\t\t' + f'{postcode}' + '\t\t\t\t' + f'{risklvl}' '\t\t\t\t\t' + f'{prtyrank}')
+        print(f'{names}' + '\t' + f'{IDs}' + '\t\t' + f'{age}' + '\t\t\t' + f'{postcode}' + '\t\t\t\t' + f'{risklvl}' '\t\t\t\t\t' + f'{prtyrank}')
         print('-------------------------------------------------------------------------------------------------------------------------------------')
 
        
         f = input('Please input the name of the user (or type in x to return to admin menu): ')
-    #    print('Available vaccine centers: ')
-    #   with open('newfile', 'w') as z:
-    #        print()
-    #        #placeholder
+        print('Available vaccine centers: ')
+        with open('newfile', 'w') as z:
+            print()
+            #placeholder
         
 
 #add new vac center. (open new json file for the vac center containing names of those assigned there)
