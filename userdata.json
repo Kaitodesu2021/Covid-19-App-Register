@@ -40,5 +40,26 @@
         "risk_lvl": "-",
         "occupation": "Neurosurgeon",
         "med_history": "-"
+    },
+    {
+        "names": "test",
+        "ages": 25,
+        "mykad": 30512325523,
+        "gender": "Male",
+        "phone": "0123456789",
+        "address": "1, Rainbow Road, Taman Pulis",
+        "postcode": 12345,
+        "city": "WPKL",
+        "state": "Kuala Lumpur",
+        "username": "1",
+        "password": "2",
+        "cv19_status": "-",
+        "apptment_data": "-",
+        "apptment_time": "-",
+        "apptment_location": "-",
+        "priority_ranking": "-",
+        "risk_lvl": "-",
+        "occupation": "Neurosurgeon",
+        "med_history": "-"
     }
 ]

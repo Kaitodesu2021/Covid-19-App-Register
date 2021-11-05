@@ -178,7 +178,7 @@ def option_2():
         if userp[f]['username'] == username and userp[f]['password'] == password:
             print('User logged in successfully')
             #add func for user menu here
-            publicListingPage()
+            publicListingPage(userp, f)
             return
             
     print('Incorrect username/password, please try again.')
@@ -437,8 +437,7 @@ def appmt_assgned():
     f = input('Select a vaccination center by inputting the number: ')
     #to be finished
 
-def publicUpdate(): 
-    #     print("%d is an integer while %s is a string."%(a,b))
+def publicUpdate(userp, f): 
     print("""PLEASE CHOOSE WHAT ARE YOU UPDATING=:
 
         1.NAME
@@ -450,64 +449,56 @@ def publicUpdate():
         7.POSTCODE
         8.STATE
         9.OCCUPATION
-        10.CURRENT STATUS
-        11.MEDICAL HISTORY  
+        10.MEDICAL HISTORY  
         0. RETURN TO PREVIOUS PAGE
         ---------------------------------------------------------
         THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.""")
-    
-    # dir_path = os.path.dirname(os.path.realpath(__file__))
-
-    # Opening JSON file
-    # f = open(dir_path + '/' + 'data.json')
 
     z=input("Enter your update number here: ")
 
-
     if z=="1".lower(): #to lowercase --> "xxx".lower()
-        e=[]
         a=(input("Enter your fullname: " ))
-        print(f"Name: {a}")
-
+        userp[f]["names"] = a
+        publicUpdate(userp, f)
 
     elif z=="2":
-        e=[]
         b=int(input("Enter your age: "))
-        print(f"Age: {b}")
+        userp[f]["ages"] = b
+        
+        
 
     elif z=="3":
-        e=[]
         c=int(input("Enter your identity card number: "))
-        print(f"Identity card number:{c} ")
+        userp[f]["mykad"] = c
+        publicUpdate(userp, f)
 
     elif z=="4":
-        e=[]
         d=int(input("Enter your telephone number: "))
-        print(f"Telephone number:{d}")
+        userp[f]["phone"] = d
+        publicUpdate(userp, f)
 
     elif z=="5":
-        e=[]
         h=input("Enter your email: ")
-        print(f"User's email:{h}")
+        userp[f]["email"] = h
+        publicUpdate(userp, f)
 
     elif z=="6":
-        e=[]
         g=input("Enter your current address: ")
-        print(f"Current address: {g}")
+        userp[f]["address"] = g
+        publicUpdate(userp, f)
 
     elif z=="7":
-        e=[]
         i=int(input("Enter your current postcode: "))
-        print(f"Current postcode: {i}")
+        userp[f]["postcode"] = i
+        publicUpdate(userp, f)
 
     elif z=="8":
-        e=[]
         j=input("Enter your current state: ")
-        print(f"Current state: {j}")
+        userp[f]["state"] = j
+        publicUpdate(userp, f)
 
     elif z=="9":
-        e=[]
-        print("""IF YOU ARE A FROTLINER, PLEASE CHOOSE 1. IF NOT, PLEASE CHOOSE 2):
+        print("""IF YOU ARE A FRONTLINER, PLEASE CHOOSE 1. IF NOT, PLEASE CHOOSE 2):
         1. FRONTLINERS (health-care worker, community services, energy, food and
         transportation, workers, students and etc)
         2. NON-FRONTLINERS 
@@ -516,61 +507,33 @@ def publicUpdate():
         k=input("Enter your update number here: ")
 
         if k=="1": 
-            e=[]
+            userp[f]["occupation"] = "FRONTLINERS"
             print("Occupation: FRONTLINERS")
 
         elif k=="2":  
-            e=[]
+            userp[f]["occupation"] = "NON-FRONTLINER"
             print("Occupation: NON-FRONTLINER")
 
         else:
-            print("Invalid")    
+            print("Invalid input. Please re-enter")   
+            publicUpdate(userp, f) 
 
 
     elif z=="10":
-        e=[]
-        print("""WHAT IS YOUR CURRENT STATUS AT THE MOMENT?
-        1. NORMAL (DID NOT HAVE ANY CONTACT WITH POSITIVE COVID-19 PATIENTS)
-        2. BEEN IN CONTACT WITH POSITIVE COVID-19 PATIENT
-        3. UNDER QUARANTINE
-        """)
-        l=input("Enter your number: ")
-        
-        if l=="1":
-            e=[]
-            print("CURRENT STATUS: NORMAL(LOW RISK)")
-
-        elif l=="2": 
-            e=[]
-            print("CURRENT STATUS: BEEN IN CONTACT(MODERATE RISK)")
-
-        elif l=="3": 
-            e=[]
-            print("CURRENT STATUS: UNDER QUARANTINE(HIGH RISK)")    
-
-        else:
-            print("Invalid")
-
-
-    elif z=="11":
-        e=[]
         print("""PLEASE CHOOSE YOUR MEDICAL HISTORY?
         1.Have any cardiovascular diseases, diabetes, chronic respiratory disease, chronic lung disease,
     chronic kidney disease, asthma, obesity, hyper-tension or cancer
-        2. Have allergic (seafood,peanuts or etc)
+        2. None of the above
         """)
         m=input("Enter your number: ")
         
         if m=="1":
-            e=[]
             print("MEDICAL HISTORY: CHRONIC DISEASES(HIGH RISK)")
+            userp[f]["med_history"] = "DIAGNOSED WITH CHRONIC DISEASES(HIGH RISK)"
 
         elif m=="2": 
-            e=[]
-            print("MEDICAL HISTORY: ALLERGIC")
-    
-        else:
-            print("NO HEALTH PROBLEMS")
+            print("NO HIGH RISK HEALTH PROBLEMS")
+            userp[f]["med_history"] = "NO HIGH RISK HEALTH PROBLEMS"
      
     elif z=="0":
         # publicListing()
@@ -579,8 +542,10 @@ def publicUpdate():
         print("Invalid")
         breakpoint
 
-def publicListingPage(): 
-    userdata=[]
+    saveuserdata(userp) 
+
+
+def publicListingPage(userp, f): 
 
     print("""PLEASE SELECT WHAT IS YOUR INTENTION?=:
 
@@ -589,17 +554,11 @@ def publicListingPage():
 
     ---------------------------------------------------------
     THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.""")
-    import os 
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-
-    # Opening JSON file
-    # f = open(dir_path + '/' + 'data.json')
 
     z=input("Enter your intention  number here: ")
 
     if z=="1".lower(): #to lowercase --> "xxx".lower()
-        e=[]
-        publicUpdate()
+        publicUpdate(userp, f)
 
     elif z=="2":
         e=[]
@@ -640,5 +599,6 @@ def viewAppointment():
         publicListingPage()
     else: 
         print("INVALID")  
+        publicUpdate()
 
 main()

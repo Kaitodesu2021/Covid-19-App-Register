@@ -26,6 +26,7 @@ def viewAppointment():
 
     else: 
         print("INVALID")  
+        
 
         
 
