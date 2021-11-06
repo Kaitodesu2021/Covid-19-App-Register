@@ -36,7 +36,7 @@
         "apptment_data": "-",
         "apptment_time": "-",
         "apptment_location": "-",
-        "priority_ranking": "3",
+        "priority_ranking": "-",
         "risk_lvl": "-",
         "occupation": "Neurosurgeon",
         "med_history": "-"
@@ -66,7 +66,7 @@
         "names": "aidarazak",
         "ages": 30,
         "mykad": 12345678910,
-        "gender": "Female",
+        "gender": "Females",
         "phone": "01151121620",
         "address": "abcde",
         "postcode": 7000,

@@ -600,11 +600,11 @@ def publicUpdate(userp, f):
      
     elif z=="0":
         # publicListing()
-        publicListingPage()
+        publicListingPage(userp, f)
     else:
         print("Invalid")
         breakpoint
-
+    print(userp)
     saveuserdata(userp) 
 
 
@@ -625,13 +625,13 @@ def publicListingPage(userp, f):
 
     elif z=="2":
         e=[]
-        viewAppointment()
+        viewAppointment(userp, f)
 
     else:
         print("Invalid")
         breakpoint
 
-def viewAppointment(): 
+def viewAppointment(userp, f): 
 
     print("""HI, THIS PAGE IS TO VIEW YOUR APPOINTMENT DETAILS=:
 
@@ -652,7 +652,7 @@ def viewAppointment():
     if z=="A": 
         e=[]
         print("THANK YOU FOR ACCEPTING THE VACCINE")
-        publicListingPage()
+        publicListingPage(userp, f)
 
     elif z=="B": 
         e=[]
@@ -663,7 +663,7 @@ def viewAppointment():
         publicListingPage(userp, f)
     else: 
         print("INVALID")  
-        publicListingPage()
+        publicListingPage(userp, f)
 
 
 #prity_rank()
