@@ -393,20 +393,7 @@ def appmt_setup():
         print(f'{i+1}. ' + f'{vacnames}')
     print('-----------------------------------------------------------------------------------------------------------------------------')
     k = int(input('Select a vaccination center (enter a number): '))
-    for test in vacusers[k-1][f'vaccine_centre_{vacnames}']:
-        w=0
-
-        name = test['name']
-        ic = test['ID']
-        rsvp = test['rsvp']
-        risk = test['risk_lvl']
-        date = test['date']
-        time = test['time']
-        while True:
-            w += 1
-            break
-        print(f'{w}. ' +'\t'+ f'{name}' +'\t'+ f'{ic}' +'\t'+ f'{rsvp}' +'\t'+ f'{risk}'+'\t'+ f'{date}' +'\t'+ f'{time}' )
-
+    
 
 #add new vac center. (open new json file for the vac center containing names of those assigned there)
 def add_vac_center():
@@ -444,7 +431,7 @@ def add_vac_center():
         }
         
         add_vacusers = {
-            f"vac_centre_{vac_name}": []
+            f"vaccine_centre_{vac_name}": []
         }
 
         vaca.append(add_vacc)

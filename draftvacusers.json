@@ -2,20 +2,19 @@
     {
         "vaccine_centre_WTCKL Vaccine Centre (Station 1)": [
             {
-                "name": "user1",
-                "ID": "030429060039",
+                "names": "Wan Muhammad Atif bin Taram Satiraksa",
+                "mykad": "030429060039",
                 "date": "12.1.2021",
                 "time": "12:00P.M.",
                 "risk_lvl": "Low",
                 "rsvp": "yes"
             },
             {
-                "name": "user2",
-                "ID": "982123042213",
-                "age": "24",
+                "names": "Chong Yi Jing",
+                "mykad": "030512035523",
                 "date": "18.1.2021",
                 "time": "9:00A.M.",
-                "risk_lvl": "High",
+                "risk_lvl": "-",
                 "rsvp": "yes"
             }
         ]
@@ -23,19 +22,19 @@
     {
         "vaccine_centre_Movenpick Hotel": [
             {
-                "name": "user1",
-                "ID": "030429123345",
+                "names": "Aida Razak",
+                "mykad": "900406060231",
                 "date": "12.1.2021",
                 "time": "3:00P.M.",
-                "risk_lvl": "High",
+                "risk_lvl": "-",
                 "rsvp": "yes"
             },
             {
-                "name": "user2",
-                "ID": "990234125532",
+                "names": "Wong Yen Hong",
+                "mykad": "020708045542",
                 "date": "18.1.2021",
                 "time": "11:00A.M.",
-                "risk_lvl": "Low",
+                "risk_lvl": "-",
                 "rsvp": "yes"
             }
         ]
@@ -44,6 +43,6 @@
         "vaccine_centre_MMU Cyberjaya": []
     },
     {
-        "vac_centre_Stadium Bukit Jalil": []
+        "vaccine_centre_Stadium Bukit Jalil": []
     }
 ]
