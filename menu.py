@@ -123,12 +123,16 @@ def option_1():
     """)
     
     name=str(input("Enter full name: "))
-    age=int(input("Enter age: "))
-    id=int(input("Enter MyKad (without \"-\"): "))
+    try:
+        age=int(input("Enter age: "))
+    except Exception:
+        pass
+        option_1()
+    id=str(input("Enter MyKad (without \"-\"): "))
     gender=str(input("Enter gender(Male/Female): "))
     phone=str(input("Enter phone number(without \"-\"): "))
     address=str(input("Enter full address: "))
-    postcode=int(input("Enter postcode: "))
+    postcode=str(input("Enter postcode: "))
     city=str(input("Enter city: "))
     state=str(input("Enter state: "))
     email=str(input('Enter your email: '))
@@ -136,39 +140,45 @@ def option_1():
     password=str(input("Enter password: "))
     medhistory=str(input('Enter your medical history(if not applicable, enter \' - \'): '))
     occupation=str(input('Enter your occupation: '))
-    #validation
+    confirm = input('Confirm all details? (y/n/x to return to main menu): ')
 
-    
-    userinfo = {
-        "names" : name,
-        "ages" : age,
-        "mykad" : id,
-        "gender" : gender,
-        "phone" : phone,
-        "address" : address,
-        'postcode' : postcode,
-        'city' : city,
-        'state' : state,
-        'email' : email,
-        'username' : username,
-        'password' : password,
-        "cv19_status": '-' ,
-        "apptment_data" : '-' ,
-        "apptment_time" : '-' ,
-        "apptment_location" : '-',
-        "priority_ranking": '-', 
-        "risk_lvl" : '-',
-        "occupation" : occupation,
-        "med_history": medhistory
-    } 
-    
-    userp.append(userinfo)
-    saveuserdata(userp)
-    print('User has been registered.')
-    print('Returning to menu....')
-    
-    main()
-    return
+    if confirm == 'y':
+        userinfo = {
+            "names" : name,
+            "ages" : age,
+            "mykad" : id,
+            "gender" : gender,
+            "phone" : phone,
+            "address" : address,
+            'postcode' : postcode,
+            'city' : city,
+            'state' : state,
+            'email' : email,
+            'username' : username,
+            'password' : password,
+            "cv19_status": '-' ,
+            "apptment_date" : '-' ,
+            "apptment_time" : '-' ,
+            "apptment_location" : '-',
+            "priority_ranking": '-', 
+            "risk_lvl" : '-',
+            "occupation" : occupation,
+            "med_history": medhistory
+        } 
+        
+        userp.append(userinfo)
+        saveuserdata(userp)
+        print('User has been registered.')
+        print('Returning to menu....')
+        
+        main()
+    elif confirm == 'n':
+        option_1()
+    elif confirm == 'x':
+        main()
+    else:
+        print('Invalid input, please choose between y, n, or x.')
+        option_1()
 
 #User Login
 def option_2():
@@ -352,11 +362,13 @@ def prity_rank():
 
 def appmt_setup():
     userp = openuserdata()
+    vacusers = openvac_userdata()
+    vaca = openvac_centerdata()
     print('''
     -----------------
      Unassigned Users
     -----------------''')
-    print('Name' + '\t' + 'ID' + '\t\t' + 'Age' + '\t\t\t' + 'Postcode' + '\t\t\t\t' + 'Risk Level' '\t\t\t\t\t' + 'Priority Rank' + '')
+    print('Name' + '\t' + 'ID' + '\t' + 'Age' + '\t' + 'Postcode' + '\t' + 'Risk Level' '\t' + 'Priority Rank' + '')
     print('-----------------------------------------------------------------------------------------------------------------------------------------')
     for i in range(len(userp)):
         names = userp[i]['names']
@@ -365,16 +377,33 @@ def appmt_setup():
         postcode = userp[i]['postcode']
         risklvl = userp[i]['risk_lvl']
         prtyrank = userp[i]['priority_ranking']
-        print(f'{i+1}. ' + f'{names}' + '\t' + f'{IDs}' + '\t\t' + f'{age}' + '\t\t\t' + f'{postcode}' + '\t\t\t\t' + f'{risklvl}' '\t\t\t\t\t' + f'{prtyrank}')
+        print(f'{i+1}. ' + f'{names}' + '\t' + f'{IDs}' + '\t' + f'{age}' + '\t' + f'{postcode}' + '\t' + f'{risklvl}' '\t' + f'{prtyrank}')
     print('-------------------------------------------------------------------------------------------------------------------------------------')
 
        
     f = int(input('Please input the number of the user (or type in x to return to admin menu): '))
+    print(f'User record for {userp[f-1]["names"]} was obtained.')
+    print('-----------------------------------------------------------------------------------------------------------------------------')
     print('Available vaccine centers: ')
-    with open('newfile', 'w') as z:
-        print()
-        #placeholder
-        
+    for i in range(len(vaca)):
+        vacnames = vaca[i]['vac_name'] 
+        print(f'{i+1}. ' + f'{vacnames}')
+    print('-----------------------------------------------------------------------------------------------------------------------------')
+    k = int(input('Select a vaccination center (enter a number): '))
+    for test in vacusers[k-1][f'vaccine_centre_{vacnames}']:
+        w=0
+
+        name = test['name']
+        ic = test['ID']
+        rsvp = test['rsvp']
+        risk = test['risk_lvl']
+        date = test['date']
+        time = test['time']
+        while True:
+            w += 1
+            break
+        print(f'{w}. ' +'\t'+ f'{name}' +'\t'+ f'{ic}' +'\t'+ f'{rsvp}' +'\t'+ f'{risk}'+'\t'+ f'{date}' +'\t'+ f'{time}' )
+
 
 #add new vac center. (open new json file for the vac center containing names of those assigned there)
 def add_vac_center():
@@ -402,8 +431,7 @@ def add_vac_center():
         vac_location = str(input('Enter address of the vaccination center: '))
         vac_capacity = str(input('Enter capacity/hour of the vaccination center (e.g: 20/hour): '))
         vac_type = str(input('Enter vaccine type (Moderna/Pfizer/CanSino/J&J/AstraZeneca/Sinopharm/Sinovac): '))
-        #if vac_type != 'Moderna' or 'Pfizer' or 'CanSino' or 'J&J' or 'AstraZeneca' or 'Sinopharm' or 'Sinovac':
-        #    print('No such vaccine available. Please try again.')
+       
 
         add_vacc = {
             "vac_name" : vac_name,
@@ -484,13 +512,20 @@ def appmt_assgned():
                 break
             print(f'{w}. ' + '\t' + f'{name}' )
         print('-------------------------------------------------')
+
         try:
             d = int(input('Please input the user number you want to delete: '))
         except Exception:
-            pass
             print('Enter a number, please.')
-            prity_rank()
+            appmt_assgned()
+            pass
         
+        if d == 1:
+            for i in vacusers[i]['vaccine_centre_Movenpick Hotel']:
+                if [i]['name'] == 'user1':
+                    x = 'user1'
+                    print(x)
+
 
 
     elif prompt == '2':
@@ -668,7 +703,7 @@ def viewAppointment(userp, f):
 
 #prity_rank()
 #risk_class()
-#appmt_setup()
+appmt_setup()
 #add_vac_center()
 #appmt_assgned()
-main()
+#main()
