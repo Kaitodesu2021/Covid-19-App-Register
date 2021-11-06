@@ -131,10 +131,12 @@ def option_1():
     postcode=int(input("Enter postcode: "))
     city=str(input("Enter city: "))
     state=str(input("Enter state: "))
+    email=str(input('Enter your email: '))
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
     medhistory=str(input('Enter your medical history(if not applicable, enter \' - \'): '))
     occupation=str(input('Enter your occupation: '))
+    #validation
 
     
     userinfo = {
@@ -147,6 +149,7 @@ def option_1():
         'postcode' : postcode,
         'city' : city,
         'state' : state,
+        'email' : email,
         'username' : username,
         'password' : password,
         "cv19_status": '-' ,
@@ -178,7 +181,6 @@ def option_2():
     for f in range(len(userp)):
         if userp[f]['username'] == username and userp[f]['password'] == password:
             print('User logged in successfully')
-            #add func for user menu here
             publicListingPage(userp, f)
             return
             
@@ -232,8 +234,8 @@ def admin_menu(admin_user):
         add_vac_center()
     elif menu == '3':
         appmt_setup()
-    #elif menu == 4: 
-        #appmt_assgned()
+    elif menu == '4': 
+        appmt_assgned()
     elif menu == '5':
         main()
     else:
@@ -606,13 +608,13 @@ def publicUpdate(userp, f):
 
 def publicListingPage(userp, f): 
 
-    print("""PLEASE SELECT WHAT IS YOUR INTENTION?=:
+    print("PLEASE SELECT WHAT IS YOUR INTENTION?=:")
 
-    1.UPDATE MY INFORMATIONS
-    2.VIEW MY APPOINTMENT DETAILS
+    print("1.UPDATE MY INFORMATIONS")
+    print('2.VIEW MY APPOINTMENT DETAILS')
 
-    ---------------------------------------------------------
-    THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.""")
+    print('---------------------------------------------------------')
+    print("THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.")
 
     z=input("Enter your intention  number here: ")
 
@@ -655,7 +657,7 @@ def viewAppointment():
         f=input("PLEASE ENTER YOUR REASONS: ")
 
     elif z=="0":
-        publicListingPage()
+        publicListingPage(userp, f)
     else: 
         print("INVALID")  
         publicUpdate()
@@ -665,4 +667,5 @@ def viewAppointment():
 #risk_class()
 #appmt_setup()
 #add_vac_center()
-appmt_assgned()
+#appmt_assgned()
+main()

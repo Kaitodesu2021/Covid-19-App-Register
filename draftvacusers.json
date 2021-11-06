@@ -1,35 +1,33 @@
 [
     {
-        "vaccine_centre_WTCKL Vaccine Centre (Station 1)": 
-        [
+        "vaccine_centre_WTCKL Vaccine Centre (Station 1)": [
             {
                 "name": "user1",
                 "ID": "030429060039",
                 "date": "12.1.2021",
-                "time" : "12:00P.M.",
-                "risk_lvl" : "Low",
+                "time": "12:00P.M.",
+                "risk_lvl": "Low",
                 "rsvp": "yes"
             },
             {
                 "name": "user2",
-                "ID" : "982123042213",
+                "ID": "982123042213",
                 "age": "24",
                 "date": "18.1.2021",
                 "time": "9:00A.M.",
-                "risk_lvl" : "High",
+                "risk_lvl": "High",
                 "rsvp": "yes"
             }
         ]
     },
     {
-        "vaccine_centre_Movenpick Hotel": 
-        [
+        "vaccine_centre_Movenpick Hotel": [
             {
                 "name": "user1",
                 "ID": "030429123345",
                 "date": "12.1.2021",
                 "time": "3:00P.M.",
-                "risk_lvl" : "High",
+                "risk_lvl": "High",
                 "rsvp": "yes"
             },
             {
@@ -37,15 +35,15 @@
                 "ID": "990234125532",
                 "date": "18.1.2021",
                 "time": "11:00A.M.",
-                "risk_lvl" : "Low",
+                "risk_lvl": "Low",
                 "rsvp": "yes"
             }
         ]
     },
     {
-        "vaccine_centre_MMU Cyberjaya": 
-        [
-            
-        ]
+        "vaccine_centre_MMU Cyberjaya": []
+    },
+    {
+        "vac_centre_Stadium Bukit Jalil": []
     }
 ]
