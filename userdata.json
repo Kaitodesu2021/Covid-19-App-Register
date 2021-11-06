@@ -82,5 +82,28 @@
         "risk_lvl": "-",
         "occupation": "FRONTLINERS",
         "med_history": "-"
+    },
+    {
+        "names": "df",
+        "ages": 23,
+        "mykad": 234,
+        "gender": "male",
+        "phone": "1234",
+        "address": "wedfg",
+        "postcode": 1234,
+        "city": "213fdcv",
+        "state": "dsff",
+        "email": "sfd",
+        "username": "3",
+        "password": "4",
+        "cv19_status": "-",
+        "apptment_data": "-",
+        "apptment_time": "-",
+        "apptment_location": "-",
+        "priority_ranking": "-",
+        "risk_lvl": "-",
+        "occupation": "dvf",
+        "med_history": "-",
+        "uniqueUserID": "17445"
     }
 ]

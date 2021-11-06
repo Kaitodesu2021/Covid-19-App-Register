@@ -20,6 +20,7 @@
 import json
 import os
 from types import DynamicClassAttribute
+import uuid
 
 
 #Open and save user data to userdata.json (if the file doesn't exist, create new one.)
@@ -121,7 +122,7 @@ def option_1():
     userp = openuserdata()
     print("""Create account: 
     """)
-    
+
     name=str(input("Enter full name: "))
     try:
         age=int(input("Enter age: "))
@@ -140,6 +141,7 @@ def option_1():
     password=str(input("Enter password: "))
     medhistory=str(input('Enter your medical history(if not applicable, enter \' - \'): '))
     occupation=str(input('Enter your occupation: '))
+    uniqueUserID=uuid.uuid4().hex #hex change uuid to string form, eliminate "-"
     confirm = input('Confirm all details? (y/n/x to return to main menu): ')
 
     if confirm == 'y':
@@ -163,7 +165,8 @@ def option_1():
             "priority_ranking": '-', 
             "risk_lvl" : '-',
             "occupation" : occupation,
-            "med_history": medhistory
+            "med_history": medhistory,
+            "uniqueUserID": uniqueUserID
         } 
         
         userp.append(userinfo)
@@ -562,12 +565,12 @@ def publicUpdate(userp, f):
         publicUpdate(userp, f)
         
     elif z=="3":
-        c=int(input("Enter your identity card number: "))
+        c=str(input("Enter your identity card number: "))
         userp[f]["mykad"] = c
         publicUpdate(userp, f)
 
     elif z=="4":
-        d=int(input("Enter your telephone number: "))
+        d=str(input("Enter your telephone number: "))
         userp[f]["phone"] = d
         publicUpdate(userp, f)
 
@@ -639,7 +642,6 @@ def publicUpdate(userp, f):
     else:
         print("Invalid")
         breakpoint
-    print(userp)
     saveuserdata(userp) 
 
 
@@ -681,18 +683,20 @@ def viewAppointment(userp, f):
     0. RETURN TO PREVIOUS PAGE    
     ---------------------------------------------------------
     THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.""")
-
+    vacusers = openvac_userdata()
+    print(vacusers)
     z=input("Enter your choice (A/B/0): ")
 
+    # savevac_userdata(vacusers)
+
     if z=="A": 
-        e=[]
+        userp[f]["occupation"] = "NON-FRONTLINER"
         print("THANK YOU FOR ACCEPTING THE VACCINE")
         publicListingPage(userp, f)
 
     elif z=="B": 
-        e=[]
-        print("THANK YOU FOR ANSWERING OUR RSVP. PLEASE STATE A REASON WHY ARE YOU NOT ACCEPTING OUR VACCINE") 
-        f=input("PLEASE ENTER YOUR REASONS: ")
+        userp[f]["occupation"] = "NON-FRONTLINER"
+        publicListingPage(userp, f)
 
     elif z=="0":
         publicListingPage(userp, f)
