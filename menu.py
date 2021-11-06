@@ -173,7 +173,6 @@ def option_2():
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
     
-    print (userp)
     for f in range(len(userp)):
         if userp[f]['username'] == username and userp[f]['password'] == password:
             print('User logged in successfully')
@@ -464,9 +463,8 @@ def publicUpdate(userp, f):
     elif z=="2":
         b=int(input("Enter your age: "))
         userp[f]["ages"] = b
+        publicUpdate(userp, f)
         
-        
-
     elif z=="3":
         c=int(input("Enter your identity card number: "))
         userp[f]["mykad"] = c
@@ -509,10 +507,12 @@ def publicUpdate(userp, f):
         if k=="1": 
             userp[f]["occupation"] = "FRONTLINERS"
             print("Occupation: FRONTLINERS")
+            publicUpdate(userp, f)
 
         elif k=="2":  
             userp[f]["occupation"] = "NON-FRONTLINER"
             print("Occupation: NON-FRONTLINER")
+            publicUpdate(userp, f)
 
         else:
             print("Invalid input. Please re-enter")   
@@ -530,10 +530,12 @@ def publicUpdate(userp, f):
         if m=="1":
             print("MEDICAL HISTORY: CHRONIC DISEASES(HIGH RISK)")
             userp[f]["med_history"] = "DIAGNOSED WITH CHRONIC DISEASES(HIGH RISK)"
+            publicUpdate(userp, f)
 
         elif m=="2": 
             print("NO HIGH RISK HEALTH PROBLEMS")
             userp[f]["med_history"] = "NO HIGH RISK HEALTH PROBLEMS"
+            publicUpdate(userp, f)
      
     elif z=="0":
         # publicListing()
@@ -589,6 +591,7 @@ def viewAppointment():
     if z=="A": 
         e=[]
         print("THANK YOU FOR ACCEPTING THE VACCINE")
+        publicListingPage()
 
     elif z=="B": 
         e=[]
@@ -599,6 +602,6 @@ def viewAppointment():
         publicListingPage()
     else: 
         print("INVALID")  
-        publicUpdate()
+        publicListingPage()
 
 main()
