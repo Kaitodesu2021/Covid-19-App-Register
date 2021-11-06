@@ -383,16 +383,54 @@ def appmt_setup():
         print(f'{i+1}. ' + f'{names}' + '\t' + f'{IDs}' + '\t' + f'{age}' + '\t' + f'{postcode}' + '\t' + f'{risklvl}' '\t' + f'{prtyrank}')
     print('-------------------------------------------------------------------------------------------------------------------------------------')
 
-       
-    f = int(input('Please input the number of the user (or type in x to return to admin menu): '))
-    print(f'User record for {userp[f-1]["names"]} was obtained.')
+    try:
+        f = int(input('Please input the number of the user (or type in x to return to admin menu): '))
+    except Exception:
+        pass
+        print('Input is not a number, please try again.')
+        appmt_setup()
+    name = userp[f-1]["names"]
+    print(f'User record for {name} was obtained.')
     print('-----------------------------------------------------------------------------------------------------------------------------')
     print('Available vaccine centers: ')
+    
+    
     for i in range(len(vaca)):
         vacnames = vaca[i]['vac_name'] 
         print(f'{i+1}. ' + f'{vacnames}')
     print('-----------------------------------------------------------------------------------------------------------------------------')
-    k = int(input('Select a vaccination center (enter a number): '))
+
+    try:
+        k = int(input('Enter the name of a vaccine centre (case-sensitive): '))
+    except Exception:
+        pass
+        print('Please enter a number.')
+        appmt_setup()
+    
+    vac_center2 = vaca[k-1]["vac_name"]
+    for i in range(len(vacusers[k-1][f'vaccine_centre_{vac_center2}'])):
+        date = input('Date(DD.MM.YYYY): ')
+        time = input('Time(XX:YY(A.M./P.M.)): ')
+        name = userp[f-1]['names']
+        mykad = userp[f-1]['mykad']
+        risklvl = userp[f-1]["risk_lvl"]
+        thename = f'vaccine_centre_{vac_center2}'
+
+        thename = { 
+            "names": name,
+            "mykad": mykad,
+            "date": date,
+            "time": time,
+            "risk_lvl": risklvl,
+            "rsvp": None
+        }
+
+        vacusers[k-1].append(thename)
+        savevac_userdata(vacusers)
+
+
+        
+        
     
 
 #add new vac center. (open new json file for the vac center containing names of those assigned there)
@@ -694,7 +732,7 @@ def viewAppointment(userp, f):
 
 #prity_rank()
 #risk_class()
-appmt_setup()
+#appmt_setup()
 #add_vac_center()
 #appmt_assgned()
-#main()
+main()

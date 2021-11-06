@@ -105,5 +105,28 @@
         "occupation": "dvf",
         "med_history": "-",
         "uniqueUserID": "17445"
+    },
+    {
+        "names": "Sayid Al-Aidarus bin Sayid Abdurrahman",
+        "ages": 20,
+        "mykad": "010304060021",
+        "gender": "Male",
+        "phone": "0123452345",
+        "address": "Lot 2, Jalan Saudi Arabia,",
+        "postcode": "69420",
+        "city": "Kuala Lumpur",
+        "state": "WPKL",
+        "email": "sayidcat@gmail.com",
+        "username": "basedsayid",
+        "password": "aidarus",
+        "cv19_status": "-",
+        "apptment_date": "-",
+        "apptment_time": "-",
+        "apptment_location": "-",
+        "priority_ranking": "-",
+        "risk_lvl": "-",
+        "occupation": "Computer Scientist",
+        "med_history": "-",
+        "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd64"
     }
 ]
