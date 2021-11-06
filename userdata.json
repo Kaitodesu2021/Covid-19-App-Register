@@ -2,7 +2,7 @@
     {
         "names": "Wan Muhammad Atif bin Taram Satiraksa",
         "ages": 18,
-        "mykad": "030429060039",
+        "mykad": 30429060039,
         "gender": "Male",
         "phone": "01110255127",
         "address": "1, Jalan TH 3/4, Tiara Heights",
@@ -15,15 +15,15 @@
         "apptment_data": "-",
         "apptment_time": "-",
         "apptment_location": "-",
-        "priority_ranking": "2",
-        "risk_lvl": "High",
+        "priority_ranking": "1",
+        "risk_lvl": "Low",
         "occupation": "student",
         "med_history": "-"
     },
     {
         "names": "Chong Yi Jing",
         "ages": 25,
-        "mykad": "030512325523",
+        "mykad": 30512325523,
         "gender": "Male",
         "phone": "0123456789",
         "address": "1, Rainbow Road, Taman Pulis",
@@ -36,15 +36,15 @@
         "apptment_data": "-",
         "apptment_time": "-",
         "apptment_location": "-",
-        "priority_ranking": "2",
-        "risk_lvl": "High",
+        "priority_ranking": "-",
+        "risk_lvl": "-",
         "occupation": "Neurosurgeon",
         "med_history": "-"
     },
     {
         "names": "test",
         "ages": 25,
-        "mykad": "03051232552",
+        "mykad": 30512325523,
         "gender": "Male",
         "phone": "0123456789",
         "address": "1, Rainbow Road, Taman Pulis",
@@ -57,8 +57,8 @@
         "apptment_data": "-",
         "apptment_time": "-",
         "apptment_location": "-",
-        "priority_ranking": "1",
-        "risk_lvl": "High",
+        "priority_ranking": "-",
+        "risk_lvl": "-",
         "occupation": "Neurosurgeon",
         "med_history": "-"
     }
