@@ -10,5 +10,17 @@
         "vac_location": "KLIA, Sepang, Selangor",
         "vac_capacity": "15",
         "vac_type": "Sinovac"
+    },
+    {
+        "vac_name": "MMU Cyberjaya",
+        "vac_location": "Cyberjaya, Sepang, Selangor",
+        "vac_capacity": "25",
+        "vac_type": "Moderna"
+    },
+    {
+        "vac_name": "Stadium Bukit Jalil",
+        "vac_location": "Bukit Jalil, KL",
+        "vac_capacity": "30",
+        "vac_type": "Pfizer"
     }
 ]

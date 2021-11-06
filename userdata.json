@@ -36,7 +36,7 @@
         "apptment_data": "-",
         "apptment_time": "-",
         "apptment_location": "-",
-        "priority_ranking": "-",
+        "priority_ranking": "3",
         "risk_lvl": "-",
         "occupation": "Neurosurgeon",
         "med_history": "-"
