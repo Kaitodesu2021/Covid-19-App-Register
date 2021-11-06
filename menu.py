@@ -19,6 +19,7 @@
 
 import json
 import os
+from types import DynamicClassAttribute
 
 
 #Open and save user data to userdata.json (if the file doesn't exist, create new one.)
@@ -54,14 +55,14 @@ def openvac_centerdata(filename="vac_center.json"):
         data = json.load(f)
         return data
 
-def savevac_userdata(data, filename=f"vac&users.json"):
-    if os.path.exists("vac&users.json"):
-        os.remove("vac&users.json")   
+def savevac_userdata(data, filename=f"draftvacusers.json"):
+    if os.path.exists("draftvacusers.json"):
+        os.remove("draftvacusers.json")   
     with open(filename, "w") as f:
         json.dump(data, f, indent=4)
  
-def openvac_userdata(filename="vac&users.json"):
-    if not os.path.exists("vac&users.json"):
+def openvac_userdata(filename="draftvacusers.json"):
+    if not os.path.exists("draftvacusers.json"):
         vacusers = []
         saveuserdata(vacusers) 
 
@@ -322,36 +323,36 @@ def prity_rank():
         occupation = userp[g]['occupation']
         print(f'{g+1}. ', f'{names}' ,f'{age}' , f'{occupation}')
     print('--------------------------------------------------------------------------------')
-    f = int(input('Input user\'s number: '))
-    if f != None:
-            x = int(input(f'{userp[f-1]["names"]}, Set his priority ranking to (1-5): '))
-            if x == 1:
-                userp[f-1]['priority_ranking'] = "1"
-                saveuserdata(userp)
-                admin_menu(admin_user)
-            elif x == 2:
-                userp[f-1]['priority_ranking'] = "2"
-                saveuserdata(userp)
-                admin_menu(admin_user)
-            elif x == 3:
-                userp[f-1]['priority_ranking'] = "3"
-                saveuserdata(userp)
-                admin_menu(admin_user)
-            elif x ==4:
-                userp[f-1]['priority_ranking'] = "4"
-                saveuserdata(userp)
-                admin_menu(admin_user)
-            elif x == 5:
-                userp[f-1]['priority_ranking'] = "5"
-                saveuserdata(userp)
-                admin_menu(admin_user)
-            else:
-                print('Invalid input, please try again.')
-                prity_rank()
-    else:
-        print('Please type in something and try again')
+    try:
+        f = int(input('Input user\'s number: '))
+    except Exception:
+        pass
+        print('Words are not numbers, please try again.')
         prity_rank()
-
+    x = int(input(f'{userp[f-1]["names"]}, Set his priority ranking to (1-5): '))
+    if x == 1:
+        userp[f-1]['priority_ranking'] = "1"
+        saveuserdata(userp)
+        admin_menu(admin_user)
+    elif x == 2:
+        userp[f-1]['priority_ranking'] = "2"
+        saveuserdata(userp)
+        admin_menu(admin_user)
+    elif x == 3:
+        userp[f-1]['priority_ranking'] = "3"
+        saveuserdata(userp)
+        admin_menu(admin_user)
+    elif x ==4:
+        userp[f-1]['priority_ranking'] = "4"
+        saveuserdata(userp)
+        admin_menu(admin_user)
+    elif x == 5:
+        userp[f-1]['priority_ranking'] = "5"
+        saveuserdata(userp)
+        admin_menu(admin_user)
+    else:
+        print('Invalid input, please try again.')
+        prity_rank()
 
 
 def appmt_setup():
@@ -369,11 +370,11 @@ def appmt_setup():
         postcode = userp[i]['postcode']
         risklvl = userp[i]['risk_lvl']
         prtyrank = userp[i]['priority_ranking']
-        print(f'{names}' + '\t' + f'{IDs}' + '\t\t' + f'{age}' + '\t\t\t' + f'{postcode}' + '\t\t\t\t' + f'{risklvl}' '\t\t\t\t\t' + f'{prtyrank}')
-        print('-------------------------------------------------------------------------------------------------------------------------------------')
+        print(f'{i+1}. ' + f'{names}' + '\t' + f'{IDs}' + '\t\t' + f'{age}' + '\t\t\t' + f'{postcode}' + '\t\t\t\t' + f'{risklvl}' '\t\t\t\t\t' + f'{prtyrank}')
+    print('-------------------------------------------------------------------------------------------------------------------------------------')
 
        
-    f = input('Please input the name of the user (or type in x to return to admin menu): ')
+    f = int(input('Please input the number of the user (or type in x to return to admin menu): '))
     print('Available vaccine centers: ')
     with open('newfile', 'w') as z:
         print()
@@ -383,6 +384,8 @@ def appmt_setup():
 #add new vac center. (open new json file for the vac center containing names of those assigned there)
 def add_vac_center():
     vaca = openvac_centerdata()
+    vacusers = openvac_userdata()
+
     print('''
     -----------------------------------------
      Vaccination Centers available currently : 
@@ -395,6 +398,7 @@ def add_vac_center():
         capacityperhour = vaca[i]['vac_location']
         vaccine = vaca[i]['vac_type']
         print(f'{name}' + '\t' + f'{location}' + '\t\t' + f'{capacityperhour}' + '\t\t\t' + f'{vaccine}')
+    print('-------------------------------------------------------------------------------------------------------------------------------------------')
         
 
     q = input('Add new vaccination centre? (y/n): ')
@@ -412,9 +416,16 @@ def add_vac_center():
             "vac_capacity" : vac_capacity,
             'vac_type' : vac_type
         }
+        
+        add_vacusers = {
+            f"vac_centre_{vac_name}": []
+        }
 
         vaca.append(add_vacc)
         savevac_centerdata(vaca)
+        vacusers.append(add_vacusers)
+        savevac_userdata(vacusers)
+
         print('New vaccination center has been added.')
         print('Returning to admin menu.....')
         admin_menu(admin_user)
@@ -426,6 +437,7 @@ def add_vac_center():
         add_vac_center()
 
 def appmt_assgned():
+    vaca = openvac_centerdata()
     vacusers = openvac_userdata()
     print('''
     ---------------------
@@ -433,12 +445,62 @@ def appmt_assgned():
     ---------------------
     ''')
     print('Vaccination Centers: ')
-    for i in range(len(vacusers)):
-        vac_center = vacusers[i]['vac_name']
-        print(f'{vac_center}')
-    
-    f = input('Select a vaccination center by inputting the number: ')
-    #to be finished
+    for i in range(len(vaca)):
+        vac_center =vaca[i]['vac_name']
+        print(f'{i+1}. ' + f'{vac_center}')
+    print('-------------------------------------------------------------------------------')
+    try:
+        f = int(input('Select a vaccination center by inputting the number: '))
+    except Exception:
+        pass
+        print('Please enter a number, knobhead.')
+        appmt_assgned()
+
+    vac_center2 = vaca[f-1]["vac_name"]
+    print(f'Appointments in {vac_center2}')
+    print('No.' +'\t'+ 'Name' +'\t'+ 'ID' +'\t'+ 'RSVP' +'\t'+ 'Risk Level' +'\t'+ 'Date' +'\t'+ 'Time')
+    print('-------------------------------------------------------------------------------------------------------------------------------------------------')
+    w = 0
+  
+    for test in vacusers[f-1][f'vaccine_centre_{vac_center2}']:
+        name = test['name']
+        ic = test['ID']
+        rsvp = test['rsvp']
+        risk = test['risk_lvl']
+        date = test['date']
+        time = test['time']
+        while True:
+            w += 1
+            break
+        print(f'{w}. ' +'\t'+ f'{name}' +'\t'+ f'{ic}' +'\t'+ f'{rsvp}' +'\t'+ f'{risk}'+'\t'+ f'{date}' +'\t'+ f'{time}' )
+    print('----------------------------------------------------------------------------------------------------------------------------------------------')
+    print('1. Remove user from assigned list')
+    print('2. Return to admin menu')
+    print()
+    print('-----------------------------------------------------------------------------------------------------------------------------------------------')
+    prompt = input('Enter input number: ')
+    if prompt == '1':
+        print('Remove user from assigned list')
+        w=0
+        for test in vacusers[f-1][f'vaccine_centre_{vac_center2}']:
+            name = test['name']
+            while True:
+                w += 1
+                break
+            print(f'{w}. ' + '\t' + f'{name}' )
+        print('-------------------------------------------------')
+        try:
+            d = int(input('Please input the user number you want to delete: '))
+        except Exception:
+            pass
+            print('Enter a number, please.')
+            prity_rank()
+        
+
+
+    elif prompt == '2':
+        print('Returning to admin menu.....')
+        admin_menu(admin_user)
 
 def publicUpdate(): 
     #     print("%d is an integer while %s is a string."%(a,b))
@@ -647,3 +709,6 @@ def viewAppointment():
 
 #prity_rank()
 #risk_class()
+#appmt_setup()
+#add_vac_center()
+appmt_assgned()
