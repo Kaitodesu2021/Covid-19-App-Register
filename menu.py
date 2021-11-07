@@ -191,7 +191,6 @@ def option_1():
         saveuserdata(userp)
         print('User has been registered.')
         print('Returning to menu....')
-        
         main()
     elif confirm == 'n':
         option_1()
@@ -263,7 +262,7 @@ def admin_menu(admin_user):
     elif menu == '2':
         add_vac_center()
     elif menu == '3':
-        appmt_setup(admin_user)
+        appmt_setup()
     elif menu == '4': 
         appmt_assgned()
     elif menu == '5':
@@ -409,9 +408,9 @@ def appmt_setup():
     try:
         f = int(input('Please input the number of the user (or type in x to return to admin menu): '))
     except Exception:
-        pass
         print('Input is not a number, please try again.')
         appmt_setup()
+        pass
     name = userp[f-1]["names"]
     print(f'User record for {name} was obtained.')
     print('-----------------------------------------------------------------------------------------------------------------------------')
