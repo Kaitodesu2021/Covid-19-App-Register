@@ -308,7 +308,7 @@ def risk_class():
         names = userp[i]['names']
         age = userp[i]['ages']
         medhistory = userp[i]['med_history']
-        print(f'{i+1}. '+ 'f{names}' + '\t|' + f'{age}' + '\t|' + f'{medhistory}')
+        print(f'{i+1}. '+ f'{names}' + '\t|' + f'{age}' + '\t|' + f'{medhistory}')
     print('---------------------------------------------------------------------------------------------------------------------------')
     try:
         f = int(input('Enter full user name (or leave blank to return to admin menu): '))
