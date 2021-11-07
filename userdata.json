@@ -1,4 +1,4 @@
-[   
+[
     {
         "names": "Wan Muhammad Atif bin Taram Satiraksa",
         "ages": 18,
@@ -19,7 +19,7 @@
         "apptment_location_code": "-",
         "vaccine_type": "-",
         "priority_ranking": "-",
-        "risk_lvl": "-",
+        "risk_lvl": "Low",
         "occupation": "Student",
         "med_history": "NO HIGH RISK HEALTH PROBLEMS",
         "uniqueUserID": "b2c143c6ef5b4b0bacc235336f8ec911",
@@ -149,7 +149,7 @@
         "apptment_location_code": "-",
         "vaccine_type": "-",
         "priority_ranking": "-",
-        "risk_lvl": "-",
+        "risk_lvl": "High",
         "occupation": "Food Critic",
         "med_history": "MEDICAL HISTORY: CHRONIC DISEASES(HIGH RISK)",
         "uniqueUserID": "974f1b0cda024817aa569ea3b9409fb1",

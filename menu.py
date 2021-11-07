@@ -308,31 +308,29 @@ def risk_class():
         names = userp[i]['names']
         age = userp[i]['ages']
         medhistory = userp[i]['med_history']
-        print(f'{names}' + '\t|' + f'{age}' + '\t|' + f'{medhistory}')
+        print(f'{i+1}. '+ 'f{names}' + '\t|' + f'{age}' + '\t|' + f'{medhistory}')
     print('---------------------------------------------------------------------------------------------------------------------------')
-    choose = input('Enter full user name (or x return to admin menu): ')
-    for i in range(len(userp)):
-        if userp[i]['names'] == choose:
-            print(f'User record for {names} obtained.')
-            choose2 = input('Which class do you want to assign the user?(high/low): ')
-            if choose2 == 'high':
-                userp[0]['risk_lvl'] = "High"
-                saveuserdata(userp)
-                admin_menu(admin_user)
-            elif choose2 == 'low':
-                userp[0]['risk_lvl'] = "Low"
-                saveuserdata(userp)
-                admin_menu(admin_user)
-            else:
-                print('Invalid input, please try again.')
-                risk_class()
-        elif choose == 'x':
-                print('Returning to admin menu.....')
-                admin_menu(admin_user)
-    else:
-        print('No names matched to said query, please try again.')
+    try:
+        f = int(input('Enter full user name (or leave blank to return to admin menu): '))
+    except Exception:
+        pass
+        print('Please enter a number.')
         risk_class()
-
+        
+    print(f'User record for {userp[f-1]["names"]} obtained.')
+    f2 = input('Which class do you want to assign the user?(high/low): ')
+    if f2 == 'high':
+        userp[f-1]['risk_lvl'] = "High"
+        saveuserdata(userp)
+        admin_menu(admin_user)
+    elif f2 == 'low':
+        userp[f-1]['risk_lvl'] = "Low"
+        saveuserdata(userp)
+        admin_menu(admin_user)
+    else:
+        print('Invalid input, please try again.')
+        risk_class()
+        
 def prity_rank():
     userp = openuserdata()
     print('''
