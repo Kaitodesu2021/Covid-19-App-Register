@@ -398,10 +398,6 @@ def appmt_setup():
             prtyrank = userp[i]['priority_ranking']
             print(f'{i+1}. ' + f'{names}' + '\t|' + f'{IDs}' + '\t|' + f'{age}' + '\t|' + f'{postcode}' + '\t|' + f'{risklvl}' '\t|' + f'{prtyrank}')
             print('-------------------------------------------------------------------------------------------------------------------------------------')
-        else:
-            print(50* '-')
-            print('No unassigned users, returning to admin menu...')
-            admin_menu(admin_user)
 
     try:
         f = int(input('Please input the number of the user (or type in x to return to admin menu): '))

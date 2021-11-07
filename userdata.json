@@ -13,17 +13,17 @@
         "username": "wmatifts",
         "password": "atif123",
         "cv19_status": "-",
-        "apptment_date": "-",
-        "apptment_time": "-",
-        "apptment_location": "-",
-        "apptment_location_code": "-",
-        "vaccine_type": "-",
+        "apptment_date": "29.04.2021",
+        "apptment_time": "12:00P.M.",
+        "apptment_location": "Movenpick Hotel",
+        "apptment_location_code": 1,
+        "vaccine_type": "Sinovac",
         "priority_ranking": "-",
         "risk_lvl": "Low",
         "occupation": "Student",
         "med_history": "NO HIGH RISK HEALTH PROBLEMS",
         "uniqueUserID": "b2c143c6ef5b4b0bacc235336f8ec911",
-        "assignstatus": false
+        "assignstatus": true
     },
     {
         "names": "Nur Farahiya Aida binti Abd Razak",
