@@ -20,7 +20,8 @@
         "risk_lvl": "Low",
         "occupation": "student",
         "med_history": "-",
-        "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd66"
+        "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd66",
+        "assignstatus": true
     },
     {
         "names": "Chong Yi Jing",
@@ -43,7 +44,8 @@
         "risk_lvl": "-",
         "occupation": "Neurosurgeon",
         "med_history": "-",
-        "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd67"
+        "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd67",
+        "assignstatus": true
     },
     {
         "names": "Wong Yen Hong",
@@ -66,7 +68,8 @@
         "risk_lvl": "-",
         "occupation": "Neurosurgeon",
         "med_history": "-",
-        "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd68"
+        "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd68",
+        "assignstatus": true
     },
     {
         "names": "Aida Razak",
@@ -89,7 +92,8 @@
         "risk_lvl": "-",
         "occupation": "FRONTLINERS",
         "med_history": "-",
-        "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd69"
+        "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd69",
+        "assignstatus": true
     },
     {
         "names": "df",
@@ -113,7 +117,8 @@
         "risk_lvl": "-",
         "occupation": "dvf",
         "med_history": "-",
-        "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd65"
+        "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd65",
+        "assignstatus": true
     },
     {
         "names": "Sayid Al-Aidarus bin Sayid Abdurrahman",
@@ -212,6 +217,7 @@
         "risk_lvl": "-",
         "occupation": "efdv",
         "med_history": "MEDICAL HISTORY: CHRONIC DISEASES(HIGH RISK)",
-        "uniqueUserID": "d1ccf3a0a5324bd68bc7349e0a991bd8"
+        "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd64",
+        "assignstatus": true
     }
 ]
