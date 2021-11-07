@@ -408,25 +408,27 @@ def appmt_setup():
         appmt_setup()
     
     vac_center2 = vaca[k-1]["vac_name"]
-    for i in range(len(vacusers[k-1][f'vaccine_centre_{vac_center2}'])):
-        date = input('Date(DD.MM.YYYY): ')
-        time = input('Time(XX:YY(A.M./P.M.)): ')
-        name = userp[f-1]['names']
-        mykad = userp[f-1]['mykad']
-        risklvl = userp[f-1]["risk_lvl"]
-        thename = f'vaccine_centre_{vac_center2}'
+    
+    date = input('Date(DD.MM.YYYY): ')
+    time = input('Time(XX:YY(A.M./P.M.)): ')
+    name = userp[f-1]['names']
+    mykad = userp[f-1]['mykad']
+    risklvl = userp[f-1]["risk_lvl"]
+    thename = f'vaccine_centre_{vac_center2}'
 
-        thename = { 
-            "names": name,
-            "mykad": mykad,
-            "date": date,
-            "time": time,
-            "risk_lvl": risklvl,
-            "rsvp": None
-        }
+    thename = { 
+        "names": name,
+        "mykad": mykad,
+        "date": date,
+        "time": time,
+        "risk_lvl": risklvl,
+        "rsvp": None
+    }
 
-        vacusers[k-1].append(thename)
-        savevac_userdata(vacusers)
+    vacusers[k-1][f"vaccine_centre_{vac_center2}"].append(thename)
+    savevac_userdata(vacusers)
+    print('Returning to admin menu......')
+    admin_menu(admin_user)
 
 
         
