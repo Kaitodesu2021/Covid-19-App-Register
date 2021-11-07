@@ -107,7 +107,7 @@ def main():
     if menu == '1':
         option_1()
     elif menu == '2':
-        option_2()
+        option_2()   
     elif menu == '3':
         option_3()
     elif menu == '4':
@@ -201,12 +201,12 @@ def option_1():
         option_1()
 
 #User Login
-def option_2():
+def option_2(): 
     global public_user
     userp = openuserdata()
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
-    
+    #if password and username match, proceed to public listing page. Userp is the whole data from userdata.json, f is index. 
     for f in range(len(userp)):
         if userp[f]['username'] == username and userp[f]['password'] == password:
             print('User logged in successfully')
@@ -432,8 +432,9 @@ def appmt_setup():
         mykad = userp[f-1]['mykad']
         risklvl = userp[f-1]["risk_lvl"]
         thename = f'vaccine_centre_{vac_center2}'
+        #generate unique id for each individual user
         uniqueUserID = userp[f-1]['uniqueUserID']
-
+    
         thename = { 
             "names": name,
             "mykad": mykad,
@@ -446,6 +447,7 @@ def appmt_setup():
             "vaccine_type": vaccine_type
         }
 
+        #assign data to update userdata.json
         userp[f-1]["apptment_date"] = date
         userp[f-1]["apptment_time"] = time
         userp[f-1]["apptment_location"] = vac_center2
@@ -589,6 +591,7 @@ def appmt_assgned():
         appmt_assgned()
 
 def publicUpdate(userp, f): 
+    #let user view and update their personal details
     print(f"""PLEASE CHOOSE WHAT ARE YOU UPDATING=:
 
         1.NAME : "{userp[f]["names"]}"
@@ -678,7 +681,7 @@ def publicUpdate(userp, f):
         2. None of the above
         """)
         m=input("Enter your number: ")
-        
+        #process input and assign the appropriate string to the users
         if m=="1":
             print("MEDICAL HISTORY: CHRONIC DISEASES(HIGH RISK)")
             userp[f]["med_history"] = "DIAGNOSED WITH CHRONIC DISEASES(HIGH RISK)"
@@ -694,10 +697,12 @@ def publicUpdate(userp, f):
     else:
         print("Invalid")
         breakpoint
+    #save to userdata.json
     saveuserdata(userp) 
 
 
 def publicListingPage(userp, f): 
+    #List down all available options for public user
 
     print("PLEASE SELECT WHAT IS YOUR INTENTION?=:")
 
@@ -724,7 +729,11 @@ def publicListingPage(userp, f):
         breakpoint
 
 def viewAppointment(userp, f): 
+    #let users view appointment details and rsvp
+
+    #open draftvacusers.json for assigned user data to vaccine centre
     vacusers = openvac_userdata()
+    #open vac_center data for list of vaccination center
     vaca = openvac_centerdata()
     print(f"""HI, THIS PAGE IS TO VIEW YOUR APPOINTMENT DETAILS=: /n
 
@@ -739,6 +748,7 @@ def viewAppointment(userp, f):
     0. RETURN TO PREVIOUS PAGE    
     ---------------------------------------------------------
     """)
+    #get appointment location code based on user
     k = userp[f]["apptment_location_code"]
 
     if (k == "-"):
@@ -747,6 +757,7 @@ def viewAppointment(userp, f):
     else:
         vac_center2 = vaca[k]["vac_name"]
         assignedVaccineCenter = vacusers[k][f'vaccine_centre_{vac_center2}']
+        #loop to find match between logged in user and draftvacuser.json
         for i in range(len(assignedVaccineCenter)):
             if assignedVaccineCenter[i]["uniqueUserID"] == userp[f]["uniqueUserID"]:
                 z=input("Enter your choice (A/B/0): ")
