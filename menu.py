@@ -139,10 +139,25 @@ def option_1():
     email=str(input('Enter your email: '))
     username=str(input("Enter username: "))
     password=str(input("Enter password: "))
-    medhistory=str(input('Enter your medical history(if not applicable, enter \' - \'): '))
+    medhistory=str(input('''Enter your medical history(
+        1. Have any cardiovascular diseases, diabetes, chronic respiratory disease, chronic lung disease,chronic kidney disease, asthma, obesity, hyper-tension or cancer
+        2. None of the above:  
+        :'''))
+    global medhistoryInterpretation
+    if medhistory=="1":
+        medhistoryInterpretation = "MEDICAL HISTORY: CHRONIC DISEASES(HIGH RISK)"
+    elif medhistory=="2": 
+        medhistoryInterpretation = "NO HIGH RISK HEALTH PROBLEMS"
+    else :
+        medhistory=str(input('''Enter your medical history(
+        1. Have any cardiovascular diseases, diabetes, chronic respiratory disease, chronic lung disease,chronic kidney disease, asthma, obesity, hyper-tension or cancer
+        2. None of the above  
+        :'''))
+
     occupation=str(input('Enter your occupation: '))
     uniqueUserID=uuid.uuid4().hex #hex change uuid to string form, eliminate "-"
     confirm = input('Confirm all details? (y/n/x to return to main menu): ')
+
 
     if confirm == 'y':
         userinfo = {
@@ -162,10 +177,12 @@ def option_1():
             "apptment_date" : '-' ,
             "apptment_time" : '-' ,
             "apptment_location" : '-',
+            "apptment_location_code" : '-',
+            "vaccine_type": '-',
             "priority_ranking": '-', 
             "risk_lvl" : '-',
             "occupation" : occupation,
-            "med_history": medhistory,
+            "med_history": medhistoryInterpretation,
             "uniqueUserID": uniqueUserID
         } 
         
@@ -245,7 +262,7 @@ def admin_menu(admin_user):
     elif menu == '2':
         add_vac_center()
     elif menu == '3':
-        appmt_setup()
+        appmt_setup(admin_user)
     elif menu == '4': 
         appmt_assgned()
     elif menu == '5':
@@ -411,10 +428,12 @@ def appmt_setup():
     for i in range(len(vacusers[k-1][f'vaccine_centre_{vac_center2}'])):
         date = input('Date(DD.MM.YYYY): ')
         time = input('Time(XX:YY(A.M./P.M.)): ')
+        vaccine_type = input('Vaccine: ') 
         name = userp[f-1]['names']
         mykad = userp[f-1]['mykad']
         risklvl = userp[f-1]["risk_lvl"]
         thename = f'vaccine_centre_{vac_center2}'
+        uniqueUserID = userp[f-1]['uniqueUserID']
 
         thename = { 
             "names": name,
@@ -422,17 +441,23 @@ def appmt_setup():
             "date": date,
             "time": time,
             "risk_lvl": risklvl,
-            "rsvp": None
+            "rsvp": None,
+            "uniqueUserID": uniqueUserID,
+            "vaccineCentreCode": k-1,
+            "vaccine_type": vaccine_type
         }
 
-        vacusers[k-1].append(thename)
+        userp[f-1]["apptment_date"] = date
+        userp[f-1]["apptment_time"] = time
+        userp[f-1]["apptment_location"] = vac_center2
+        userp[f-1]["apptment_location_code"] = k-1
+        userp[f-1]["vaccine_type"] = vaccine_type
+
+        saveuserdata(userp) 
+        vacusers[k-1][f'vaccine_centre_{vac_center2}'].append(thename)
         savevac_userdata(vacusers)
-
-
+        admin_menu(admin_user)
         
-        
-    
-
 #add new vac center. (open new json file for the vac center containing names of those assigned there)
 def add_vac_center():
     vaca = openvac_centerdata()
@@ -504,7 +529,7 @@ def appmt_assgned():
         f = int(input('Select a vaccination center by inputting the number: '))
     except Exception:
         pass
-        print('Please enter a number, knobhead.')
+        print('Please enter a number')
         appmt_assgned()
 
     vac_center2 = vaca[f-1]["vac_name"]
@@ -561,18 +586,18 @@ def appmt_assgned():
         admin_menu(admin_user)
 
 def publicUpdate(userp, f): 
-    print("""PLEASE CHOOSE WHAT ARE YOU UPDATING=:
+    print(f"""PLEASE CHOOSE WHAT ARE YOU UPDATING=:
 
-        1.NAME
-        2.AGE
-        3.IDENTITY CARD NUMBER
-        4.TELEPHONE NUMBER
-        5.USER'S EMAIL
-        6.ADDRESS
-        7.POSTCODE
-        8.STATE
-        9.OCCUPATION
-        10.MEDICAL HISTORY  
+        1.NAME : "{userp[f]["names"]}"
+        2.AGE : "{userp[f]["ages"]}"
+        3.IDENTITY CARD NUMBER : "{userp[f]["mykad"]}"
+        4.TELEPHONE NUMBER : "{userp[f]["phone"]}"
+        5.USER'S EMAIL : "{userp[f]["email"]}"
+        6.ADDRESS : "{userp[f]["address"]}"
+        7.POSTCODE : "{userp[f]["postcode"]}"
+        8.STATE : "{userp[f]["state"]}"
+        9.OCCUPATION : "{userp[f]["occupation"]}"
+        10.MEDICAL HISTORY   : "{userp[f]["med_history"]}"
         0. RETURN TO PREVIOUS PAGE
         ---------------------------------------------------------
         THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.""")
@@ -674,7 +699,7 @@ def publicListingPage(userp, f):
 
     print("PLEASE SELECT WHAT IS YOUR INTENTION?=:")
 
-    print("1.UPDATE MY INFORMATIONS")
+    print("1.UPDATE MY INFORMATION")
     print('2.VIEW MY APPOINTMENT DETAILS')
 
     print('---------------------------------------------------------')
@@ -694,40 +719,43 @@ def publicListingPage(userp, f):
         breakpoint
 
 def viewAppointment(userp, f): 
+    vacusers = openvac_userdata()
+    vaca = openvac_centerdata()
+    print(userp[f])
+    print(f"""HI, THIS PAGE IS TO VIEW YOUR APPOINTMENT DETAILS=: /n
 
-    print("""HI, THIS PAGE IS TO VIEW YOUR APPOINTMENT DETAILS=:
-
-    i.  PLACE : Austin International Convention Center - AICC
-    ii. DATE : 25/11/2021
-    iii.VACCINE : PFIZER
-    iv. TIME : 8:30 a.m.
+    i.  PLACE : {userp[f]["apptment_location"]}
+    ii. DATE : '{userp[f]["apptment_date"]}'
+    iii.VACCINE : '{userp[f]["vaccine_type"]}'
+    iv. TIME : '{userp[f]["apptment_time"]}'
     v.  PLEASE RESPOND TO OUR RSVP?
         IF YES--> A
         IF NO --> B
 
     0. RETURN TO PREVIOUS PAGE    
     ---------------------------------------------------------
-    THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.""")
-    vacusers = openvac_userdata()
-    print(vacusers)
-    z=input("Enter your choice (A/B/0): ")
+    """)
+    k = userp[f]["apptment_location_code"]
+    vac_center2 = vaca[k]["vac_name"]
+    assignedVaccineCenter = vacusers[k][f'vaccine_centre_{vac_center2}']
+    for i in range(len(assignedVaccineCenter)):
+        if assignedVaccineCenter[i]["uniqueUserID"] == userp[f]["uniqueUserID"]:
+            z=input("Enter your choice (A/B/0): ")
 
-    # savevac_userdata(vacusers)
+            if z=="A": 
+                vacusers[k][f'vaccine_centre_{vac_center2}'][i]["rsvp"] = "yes"
+                savevac_userdata(vacusers)
+                publicListingPage(userp, f)
+            elif z=="B": 
+                vacusers[k][f'vaccine_centre_{vac_center2}'][i]["rsvp"] = "no"
+                savevac_userdata(vacusers)
+                publicListingPage(userp, f)
+            elif z=="0":
+                publicListingPage(userp, f)
+            else: 
+                print("INVALID")  
+                publicListingPage(userp, f)
 
-    if z=="A": 
-        userp[f]["occupation"] = "NON-FRONTLINER"
-        print("THANK YOU FOR ACCEPTING THE VACCINE")
-        publicListingPage(userp, f)
-
-    elif z=="B": 
-        userp[f]["occupation"] = "NON-FRONTLINER"
-        publicListingPage(userp, f)
-
-    elif z=="0":
-        publicListingPage(userp, f)
-    else: 
-        print("INVALID")  
-        publicListingPage(userp, f)
 
 
 #prity_rank()

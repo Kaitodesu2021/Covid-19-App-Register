@@ -7,7 +7,8 @@
                 "date": "12.1.2021",
                 "time": "12:00P.M.",
                 "risk_lvl": "Low",
-                "rsvp": "yes"
+                "rsvp": "yes",
+                "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd66"
             },
             {
                 "names": "Chong Yi Jing",
@@ -15,7 +16,19 @@
                 "date": "18.1.2021",
                 "time": "9:00A.M.",
                 "risk_lvl": "-",
-                "rsvp": "yes"
+                "rsvp": "yes",
+                "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd67"
+            },
+            {
+                "names": "fccgvhb",
+                "mykad": "4678",
+                "date": "26.02.2021",
+                "time": "12:00P.M.",
+                "risk_lvl": "-",
+                "rsvp": null,
+                "uniqueUserID": "a015752f215e4e55bd48ad847c9c449a",
+                "vaccineCentreCode": 0,
+                "vaccine_type": "Pfizer"
             }
         ]
     },
@@ -27,7 +40,8 @@
                 "date": "12.1.2021",
                 "time": "3:00P.M.",
                 "risk_lvl": "-",
-                "rsvp": "yes"
+                "rsvp": "yes",
+                "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd69"
             },
             {
                 "names": "Wong Yen Hong",
@@ -35,7 +49,19 @@
                 "date": "18.1.2021",
                 "time": "11:00A.M.",
                 "risk_lvl": "-",
-                "rsvp": "yes"
+                "rsvp": "yes",
+                "uniqueUserID": "574d5b9eb3014fed868f9b480e3ecd68"
+            },
+            {
+                "names": "fccgvhb",
+                "mykad": "4678",
+                "date": "12",
+                "time": "213",
+                "risk_lvl": "-",
+                "rsvp": "yes",
+                "uniqueUserID": "a015752f215e4e55bd48ad847c9c449a",
+                "vaccineCentreCode": 1,
+                "vaccine_type": "pfizer"
             }
         ]
     },
