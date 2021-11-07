@@ -263,7 +263,7 @@ def admin_menu(admin_user):
     elif menu == '2':
         add_vac_center()
     elif menu == '3':
-        appmt_setup(admin_user)
+        appmt_setup()
     elif menu == '4': 
         appmt_assgned()
     elif menu == '5':
