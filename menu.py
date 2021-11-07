@@ -744,25 +744,31 @@ def viewAppointment(userp, f):
     ---------------------------------------------------------
     """)
     k = userp[f]["apptment_location_code"]
-    vac_center2 = vaca[k]["vac_name"]
-    assignedVaccineCenter = vacusers[k][f'vaccine_centre_{vac_center2}']
-    for i in range(len(assignedVaccineCenter)):
-        if assignedVaccineCenter[i]["uniqueUserID"] == userp[f]["uniqueUserID"]:
-            z=input("Enter your choice (A/B/0): ")
 
-            if z=="A": 
-                vacusers[k][f'vaccine_centre_{vac_center2}'][i]["rsvp"] = "yes"
-                savevac_userdata(vacusers)
-                publicListingPage(userp, f)
-            elif z=="B": 
-                vacusers[k][f'vaccine_centre_{vac_center2}'][i]["rsvp"] = "no"
-                savevac_userdata(vacusers)
-                publicListingPage(userp, f)
-            elif z=="0":
-                publicListingPage(userp, f)
-            else: 
-                print("INVALID")  
-                publicListingPage(userp, f)
+    if (k == "-"):
+        print("You have not been assigned a vaccine appointment date yet. Thank you for your patience")
+        publicListingPage(userp, f)
+    else:
+        vac_center2 = vaca[k]["vac_name"]
+        assignedVaccineCenter = vacusers[k][f'vaccine_centre_{vac_center2}']
+        for i in range(len(assignedVaccineCenter)):
+            if assignedVaccineCenter[i]["uniqueUserID"] == userp[f]["uniqueUserID"]:
+                z=input("Enter your choice (A/B/0): ")
+
+                if z=="A": 
+                    vacusers[k][f'vaccine_centre_{vac_center2}'][i]["rsvp"] = "yes"
+                    savevac_userdata(vacusers)
+                    publicListingPage(userp, f)
+                elif z=="B": 
+                    vacusers[k][f'vaccine_centre_{vac_center2}'][i]["rsvp"] = "no"
+                    savevac_userdata(vacusers)
+                    publicListingPage(userp, f)
+                elif z=="0":
+                    publicListingPage(userp, f)
+                else: 
+                    print("INVALID")  
+                    publicListingPage(userp, f)
+
 
 
 
