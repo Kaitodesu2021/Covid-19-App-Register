@@ -5,7 +5,7 @@
 # Trimester: 2110
 # Year: 2021/22 Trimester 1
 # Member_1: 1211103154 | Wan Muhammad Atif bin Taram Satiraksa | 1211103154@student.mmu.edu.my | 011-10255127
-# Member_2: 1211103194 | Nur Farahiya Aida binti Abdul Razak | 1211103194@student.mmu.edu.my | 011-51121620
+# Member_2: 1211103194 | Nur Farahiya Aida binti Abd Razak | 1211103194@student.mmu.edu.my | 011-51121620
 # Member_3: 1211103373 | Muhammad Alif bin Khabali | 1211103373@student.mmu.edu.my | 017-4622108
 # Member_4: 1211103097 | Nurul Aqilah binti Mohd Shariff | 1211103097@student.mmu.edu.my | 010-7993211
 # *********************************************************
