@@ -694,7 +694,6 @@ def publicUpdate(userp, f):
             publicUpdate(userp, f)
      
     elif z=="0":
-        # publicListing()
         publicListingPage(userp, f)
     else:
         print("Invalid")
@@ -706,8 +705,9 @@ def publicListingPage(userp, f):
 
     print("PLEASE SELECT WHAT IS YOUR INTENTION?=:")
 
-    print("1.UPDATE MY INFORMATION")
-    print('2.VIEW MY APPOINTMENT DETAILS')
+    print("1. UPDATE MY INFORMATION")
+    print('2. VIEW MY APPOINTMENT DETAILS')
+    print('0. RETURN TO MAIN MENU')
 
     print('---------------------------------------------------------')
     print("THANK YOU FOR CHOOSING, PLEASE WAIT FOR A MOMENT.")
@@ -718,8 +718,10 @@ def publicListingPage(userp, f):
         publicUpdate(userp, f)
 
     elif z=="2":
-        e=[]
         viewAppointment(userp, f)
+    
+    elif z=="0":
+        main()
 
     else:
         print("Invalid")
@@ -767,12 +769,4 @@ def viewAppointment(userp, f):
                     print("INVALID")  
                     publicListingPage(userp, f)
 
-
-
-
-#prity_rank()
-#risk_class()
-#appmt_setup()
-#add_vac_center()
-#appmt_assgned()
 main()
