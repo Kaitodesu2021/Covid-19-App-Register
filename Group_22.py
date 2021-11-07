@@ -23,7 +23,7 @@ from types import DynamicClassAttribute
 import uuid
 
 
-#Open and save user data to userdata.json (if the file doesn't exist, create new one.)
+#Open and save user data to userdata.json 
 def saveuserdata(data, filename="userdata.json"):
     if os.path.exists("userdata.json"):
         os.remove("userdata.json")   
@@ -39,13 +39,14 @@ def openuserdata(filename="userdata.json"):
     with open(filename, "r") as f:
         data = json.load(f)
         return data
-
+#Open and save vaccination center data to vac_center.json 
 def savevac_centerdata(data, filename="vac_center.json"):
     if os.path.exists("vac_center.json"):
         os.remove("vac_center.json")   
     with open(filename, "w") as f:
         json.dump(data, f, indent=4)
  
+#Open and load vaccination center data to vac_center.json
 def openvac_centerdata(filename="vac_center.json"):
     if not os.path.exists("vac_center.json"):
         vaca = []
@@ -54,13 +55,13 @@ def openvac_centerdata(filename="vac_center.json"):
     with open(filename, "r") as f:
         data = json.load(f)
         return data
-
+#Open and save vaccine center/assigned user data to draftvacuser.json
 def savevac_userdata(data, filename=f"draftvacusers.json"):
     if os.path.exists("draftvacusers.json"):
         os.remove("draftvacusers.json")   
     with open(filename, "w") as f:
         json.dump(data, f, indent=4)
- 
+#Open and load vaccine center/assigned user data to draftvacuser.json
 def openvac_userdata(filename="draftvacusers.json"):
     if not os.path.exists("draftvacusers.json"):
         vacusers = []
@@ -69,7 +70,7 @@ def openvac_userdata(filename="draftvacusers.json"):
     with open(filename, "r") as f:
         data = json.load(f)
         return data
-#Open and save admin data to admindata.json (if the file doesn't exist, create new one.)
+#Open and save admin data to admindata.json 
 def saveadmindata(data, filename="admindata.json"):
     if os.path.exists("admindata.json"):
         os.remove("admindata.json")   
@@ -87,7 +88,7 @@ def openadmindata(filename="admindata.json"):
         return data
 
 
-#Main menu interface
+#Main menu Interface, with 4 options to choose.
 def main():
     print("""
     ------------------------------------------------------------------------------------
@@ -117,7 +118,7 @@ def main():
         main()
         return
 
-#Sign Up function
+#Sign Up function. Request inputs and append all inputted info to userdata.json.
 def option_1():
     userp = openuserdata()
     print("""Create account: 
@@ -200,7 +201,7 @@ def option_1():
         print('Invalid input, please choose between y, n, or x.')
         option_1()
 
-#User Login
+#User Login. Compare inputted data to saved user data in userdata.json
 def option_2(): 
     global public_user
     userp = openuserdata()
@@ -219,7 +220,7 @@ def option_2():
             
         
 
-#Admin Login
+#Admin Login. Compare inputted data to saved admin data in admindata.json
 def option_3():
     global admin_user
     adminp = openadmindata()
@@ -236,12 +237,13 @@ def option_3():
     option_3()
     print()
 
-#Exit program
+#Exit program.
 def option_4():
     print("Logged out.")
     quit
+    return
 
-#admin menu
+#Admin menu. Prompts 5 options that admins must choose to proceed.
 def admin_menu(admin_user):
     print('-------------------------------------------------------------------------')
     print(f'''
@@ -271,6 +273,7 @@ def admin_menu(admin_user):
         print('Invalid input, please try again.')
         admin_menu(admin_user)
 
+#Categorise users allow admins to assign users to risk class and priority ranking based on their occupation or health risks.
 def categorise_users():
     print('''
         -----------------
@@ -294,7 +297,8 @@ def categorise_users():
     else:
         print('Invalid input, please try again.')
         categorise_users()
-    
+
+#Assign users to different risk level of high or low based on the users' medical history.
 def risk_class():
     userp = openuserdata()
     print('''
@@ -311,12 +315,16 @@ def risk_class():
         print(f'{i+1}. '+ f'{names}' + '\t|' + f'{age}' + '\t|' + f'{medhistory}')
     print('---------------------------------------------------------------------------------------------------------------------------')
     try:
-        f = int(input('Enter full user name (or leave blank to return to admin menu): '))
+        f = int(input('Enter user number (or 0 to return to main menu): '))
     except Exception:
         pass
         print('Please enter a number.')
         risk_class()
-        
+    if f == 0:
+        print('Returning to main menu....')
+        admin_menu(admin_user)
+    else:
+        pass
     print(f'User record for {userp[f-1]["names"]} obtained.')
     f2 = input('Which class do you want to assign the user?(high/low): ')
     if f2 == 'high':
@@ -330,7 +338,8 @@ def risk_class():
     else:
         print('Invalid input, please try again.')
         risk_class()
-        
+
+#Assign users to different priority rank for vaccination depending on their occupation (Frontliners with the highest while students and children with the lowest priority ranking)       
 def prity_rank():
     userp = openuserdata()
     print('''
@@ -377,7 +386,7 @@ def prity_rank():
         print('Invalid input, please try again.')
         prity_rank()
 
-
+#Allows admin to setup appointments to users that haven't been assigned to a vaccination centre.
 def appmt_setup():
     userp = openuserdata()
     vacusers = openvac_userdata()
@@ -400,10 +409,15 @@ def appmt_setup():
             print('-------------------------------------------------------------------------------------------------------------------------------------')
 
     try:
-        f = int(input('Please input the number of the user (or type in x to return to admin menu): '))
+        f = int(input('Please input the number of the user (or type in 0 to return to admin menu): '))
     except Exception:
         print('Input is not a number, please try again.')
         appmt_setup()
+        pass
+    if f == 0:
+        print('Returning to main menu....')
+        admin_menu(admin_user)
+    else:
         pass
     name = userp[f-1]["names"]
     print(f'User record for {name} was obtained.')
@@ -417,7 +431,7 @@ def appmt_setup():
     print('-----------------------------------------------------------------------------------------------------------------------------')
 
     try:
-        k = int(input('Enter the name of a vaccine centre (case-sensitive): '))
+        k = int(input('Enter the number of a vaccine centre: '))
     except Exception:
         pass
         print('Please enter a number.')
@@ -432,9 +446,10 @@ def appmt_setup():
         mykad = userp[f-1]['mykad']
         risklvl = userp[f-1]["risk_lvl"]
         thename = f'vaccine_centre_{vac_center2}'
-        #generate unique id for each individual user
+        #Generate unique id for each individual user
         uniqueUserID = userp[f-1]['uniqueUserID']
     
+
         thename = { 
             "names": name,
             "mykad": mykad,
@@ -447,7 +462,7 @@ def appmt_setup():
             "vaccine_type": vaccine_type
         }
 
-        #assign data to update userdata.json
+        #Assign data to update userdata.json
         userp[f-1]["apptment_date"] = date
         userp[f-1]["apptment_time"] = time
         userp[f-1]["apptment_location"] = vac_center2
@@ -462,7 +477,7 @@ def appmt_setup():
         admin_menu(admin_user)
 
         
-#add new vac center. (open new json file for the vac center containing names of those assigned there)
+#Add new vacccination center. Appends both draftvacusers.json and vac_center.json with appropriate and specific input data from the admin
 def add_vac_center():
     vaca = openvac_centerdata()
     vacusers = openvac_userdata()
@@ -486,7 +501,7 @@ def add_vac_center():
     if q == 'y':
         vac_name=str(input('Enter name of the vaccination center: '))
         vac_location = str(input('Enter address of the vaccination center: '))
-        vac_capacity = str(input('Enter capacity/hour of the vaccination center (e.g: 20/hour): '))
+        vac_capacity = str(input('Enter capacity/hour of the vaccination center (e.g: 20): '))
         vac_type = str(input('Enter vaccine type (Moderna/Pfizer/CanSino/J&J/AstraZeneca/Sinopharm/Sinovac): '))
        
 
@@ -498,7 +513,7 @@ def add_vac_center():
         }
         
         add_vacusers = {
-            f"vaccine_centre_{vac_name}": []
+            f"vaccine_centre_{vac_name}": [{}]
         }
 
         vaca.append(add_vacc)
@@ -516,6 +531,7 @@ def add_vac_center():
         print('Invalid input, please try again.')
         add_vac_center()
 
+#Showcase list of assigned users to the admins to check for rsvp 
 def appmt_assgned():
     vaca = openvac_centerdata()
     vacusers = openvac_userdata()
@@ -578,7 +594,6 @@ def appmt_assgned():
             appmt_assgned()
         
         vacusers[f-1][f'vaccine_centre_{vac_center2}'][d-1].clear()
-        #how do i set the assign status to false
         savevac_userdata(vacusers)
         print('User has been deleted. Returning to admin menu...')
         admin_menu(admin_user)
