@@ -166,7 +166,8 @@ def option_1():
             "risk_lvl" : '-',
             "occupation" : occupation,
             "med_history": medhistory,
-            "uniqueUserID": uniqueUserID
+            "uniqueUserID": uniqueUserID,
+            "assignstatus" : False
         } 
         
         userp.append(userinfo)
@@ -285,36 +286,36 @@ def risk_class():
     Assign a user to a risk class
     ------------------------------
     ''')
-    print('Name' + '\t\t\t' + 'Age' + '\t\t\t\t' + 'Medical History (if any)')
-    print('--------------------------------------------' + '\t\t' + '---------' + '\t\t\t' + '----------------------')
+    print('Name' + '\t|' + 'Age' + '\t|' + 'Medical History (if any)')
+    print('---------------------------------------------------------------------------------------------------------------------------')
     for i in range(len(userp)):
         names = userp[i]['names']
         age = userp[i]['ages']
         medhistory = userp[i]['med_history']
-        print(f'{names}' + '\t\t\t' + f'{age}' + '\t\t\t' + f'{medhistory}')
-        print('---------------------------------------------------------------------------------------------------------------------------')
-
-        choose = input('Enter full user name (or x return to admin menu): ')
-        for i in range(len(userp)):
-            if userp[i]['names'] == choose:
-                print(f'User record for {names} obtained.')
-                choose2 = input('Which class do you want to assign the user?(high/low): ')
-                if choose2 == 'high':
-                    userp[0]['risk_lvl'] = "High"
-                    saveuserdata(userp)
-                    admin_menu(admin_user)
-                elif choose2 == 'low':
-                    userp[0]['risk_lvl'] = "Low"
-                    saveuserdata(userp)
-                    admin_menu(admin_user)
-                else:
-                    print('Invalid input, please try again.')
-                    risk_class()
-            elif choose == 'x':
-                    print('Returning to admin menu.....')
-                    admin_menu(admin_user)
+        print(f'{names}' + '\t|' + f'{age}' + '\t|' + f'{medhistory}')
+    print('---------------------------------------------------------------------------------------------------------------------------')
+    choose = input('Enter full user name (or x return to admin menu): ')
+    for i in range(len(userp)):
+        if userp[i]['names'] == choose:
+            print(f'User record for {names} obtained.')
+            choose2 = input('Which class do you want to assign the user?(high/low): ')
+            if choose2 == 'high':
+                userp[0]['risk_lvl'] = "High"
+                saveuserdata(userp)
+                admin_menu(admin_user)
+            elif choose2 == 'low':
+                userp[0]['risk_lvl'] = "Low"
+                saveuserdata(userp)
+                admin_menu(admin_user)
             else:
-                print('No names matched to said query, please try again.')
+                print('Invalid input, please try again.')
+                risk_class()
+        elif choose == 'x':
+                print('Returning to admin menu.....')
+                admin_menu(admin_user)
+    else:
+        print('No names matched to said query, please try again.')
+        risk_class()
 
 def prity_rank():
     userp = openuserdata()
@@ -323,7 +324,7 @@ def prity_rank():
     Assign users to suitable priority ranking
     -----------------------------------------
     ''')
-    print('Name' + '\t\t\t' + 'Age' + '\t\t\t\t' + 'Occupation')
+    print('Name' + '\t|' + 'Age' + '\t|' + 'Occupation')
     print('-----------------------------------------------------------------------------')
     for g in range(len(userp)):
         names = userp[g]['names']
@@ -371,17 +372,22 @@ def appmt_setup():
     -----------------
      Unassigned Users
     -----------------''')
-    print('Name' + '\t' + 'ID' + '\t' + 'Age' + '\t' + 'Postcode' + '\t' + 'Risk Level' '\t' + 'Priority Rank' + '')
+    print('Name' + '\t|' + 'ID' + '\t|' + 'Age' + '\t|' + 'Postcode' + '\t|' + 'Risk Level' '\t|' + 'Priority Rank' + '')
     print('-----------------------------------------------------------------------------------------------------------------------------------------')
     for i in range(len(userp)):
-        names = userp[i]['names']
-        IDs = userp[i]['mykad']
-        age = userp[i]['ages']
-        postcode = userp[i]['postcode']
-        risklvl = userp[i]['risk_lvl']
-        prtyrank = userp[i]['priority_ranking']
-        print(f'{i+1}. ' + f'{names}' + '\t' + f'{IDs}' + '\t' + f'{age}' + '\t' + f'{postcode}' + '\t' + f'{risklvl}' '\t' + f'{prtyrank}')
-    print('-------------------------------------------------------------------------------------------------------------------------------------')
+        if userp[i]["assignstatus"] != True:
+            names = userp[i]['names']
+            IDs = userp[i]['mykad']
+            age = userp[i]['ages']
+            postcode = userp[i]['postcode']
+            risklvl = userp[i]['risk_lvl']
+            prtyrank = userp[i]['priority_ranking']
+            print(f'{i+1}. ' + f'{names}' + '\t|' + f'{IDs}' + '\t|' + f'{age}' + '\t|' + f'{postcode}' + '\t|' + f'{risklvl}' '\t|' + f'{prtyrank}')
+            print('-------------------------------------------------------------------------------------------------------------------------------------')
+        else:
+            print(50* '-')
+            print('No unassigned users, returning to admin menu...')
+            admin_menu(admin_user)
 
     try:
         f = int(input('Please input the number of the user (or type in x to return to admin menu): '))
@@ -425,8 +431,12 @@ def appmt_setup():
         "rsvp": None
     }
 
+    userp[f-1]['assignstatus'] = True
+    saveuserdata(userp)
+
     vacusers[k-1][f"vaccine_centre_{vac_center2}"].append(thename)
     savevac_userdata(vacusers)
+    
     print('Returning to admin menu......')
     admin_menu(admin_user)
 
@@ -444,14 +454,14 @@ def add_vac_center():
     -----------------------------------------
      Vaccination Centers available currently : 
     -----------------------------------------''')
-    print('Name' + '\t' + 'ID' + '\t\t' + 'Age' + '\t\t\t' + 'Postcode' + '\t\t\t\t' + 'Priority Rank')
+    print('Name' + '\t|' + 'ID' + '\t|' + 'Age' + '\t|' + 'Postcode' + '\t|' + 'Priority Rank')
     print('-----------------------------------------------------------------------------------------------------------------------------------------')
     for i in range(len(vaca)):
         name = vaca[i]['vac_name'] 
         location = vaca[i]['vac_location']
         capacityperhour = vaca[i]['vac_location']
         vaccine = vaca[i]['vac_type']
-        print(f'{name}' + '\t' + f'{location}' + '\t\t' + f'{capacityperhour}' + '\t\t\t' + f'{vaccine}')
+        print(f'{name}' + '\t|' + f'{location}' + '\t|' + f'{capacityperhour}' + '\t|' + f'{vaccine}')
     print('-------------------------------------------------------------------------------------------------------------------------------------------')
         
 
@@ -511,13 +521,13 @@ def appmt_assgned():
 
     vac_center2 = vaca[f-1]["vac_name"]
     print(f'Appointments in {vac_center2}')
-    print('No.' +'\t'+ 'Name' +'\t'+ 'ID' +'\t'+ 'RSVP' +'\t'+ 'Risk Level' +'\t'+ 'Date' +'\t'+ 'Time')
+    print('No.' +'\t|'+ 'Name' +'\t|'+ 'ID' +'\t|'+ 'RSVP' +'\t|'+ 'Risk Level' +'\t|'+ 'Date' +'\t|'+ 'Time')
     print('-------------------------------------------------------------------------------------------------------------------------------------------------')
     w = 0
   
     for test in vacusers[f-1][f'vaccine_centre_{vac_center2}']:
-        name = test['name']
-        ic = test['ID']
+        name = test['names']
+        ic = test['mykad']
         rsvp = test['rsvp']
         risk = test['risk_lvl']
         date = test['date']
@@ -525,7 +535,7 @@ def appmt_assgned():
         while True:
             w += 1
             break
-        print(f'{w}. ' +'\t'+ f'{name}' +'\t'+ f'{ic}' +'\t'+ f'{rsvp}' +'\t'+ f'{risk}'+'\t'+ f'{date}' +'\t'+ f'{time}' )
+        print(f'{w}. ' +'\t|'+ f'{name}' +'\t|'+ f'{ic}' +'\t|'+ f'{rsvp}' +'\t|'+ f'{risk}'+'\t|'+ f'{date}' +'\t|'+ f'{time}' )
     print('----------------------------------------------------------------------------------------------------------------------------------------------')
     print('1. Remove user from assigned list')
     print('2. Return to admin menu')
@@ -536,31 +546,32 @@ def appmt_assgned():
         print('Remove user from assigned list')
         w=0
         for test in vacusers[f-1][f'vaccine_centre_{vac_center2}']:
-            name = test['name']
+            name = test['names']
             while True:
                 w += 1
                 break
-            print(f'{w}. ' + '\t' + f'{name}' )
+            print(f'{w}. ' + '\t|' + f'{name}' )
         print('-------------------------------------------------')
 
         try:
             d = int(input('Please input the user number you want to delete: '))
         except Exception:
+            pass
             print('Enter a number, please.')
             appmt_assgned()
-            pass
         
-        if d == 1:
-            for i in vacusers[i]['vaccine_centre_Movenpick Hotel']:
-                if [i]['name'] == 'user1':
-                    x = 'user1'
-                    print(x)
-
-
-
-    elif prompt == '2':
+        vacusers[f-1][f'vaccine_centre_{vac_center2}'][d-1].clear()
+        #how do i set the assign status to false
+        savevac_userdata(vacusers)
+        print('User has been deleted. Returning to admin menu...')
+        admin_menu(admin_user)
+        
+    elif prompt == "2":
         print('Returning to admin menu.....')
         admin_menu(admin_user)
+    else:
+        print('Invalid input, please try again.')
+        appmt_assgned()
 
 def publicUpdate(userp, f): 
     print("""PLEASE CHOOSE WHAT ARE YOU UPDATING=:
